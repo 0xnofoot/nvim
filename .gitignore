@@ -1,0 +1,4 @@
+# ignore these file
+/tool/swift/codelldb/
+/tool/swift/xcode-build-server/
+/lua/config/machine_specific.lua

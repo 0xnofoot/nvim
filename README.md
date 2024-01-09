@@ -1,4 +1,4 @@
-the nvim config
+the nvim config for MacOS
 
 if you use MacOS and you need code with swift to develop the IOS App,
 you need mkdir ./tool/swift and install some tool to it:

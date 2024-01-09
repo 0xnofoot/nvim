@@ -493,7 +493,7 @@ M = {
 						["R"] = "refresh",
 						["?"] = "show_help",
 
-						["P"] = { "toggle_preview", config = { use_float = true, use_image_nvim = true } },
+						["P"] = { "toggle_preview", config = { use_float = true, use_image_nvim = false } },
 
 						["z"] = "",
 						["s"] = "",
@@ -597,30 +597,269 @@ M = {
 					},
 				},
 			})
+		end
+	},
 
-			-- TODO
-			-- local function toggleNeotree()
-			-- 	local tabs = vim.fn.gettabinfo()
-			-- local currentTabnr = vim.fn.tabpagenr()
-			--
-			-- 	for _, tab in ipairs(tabs) do
-			-- 		vim.api.nvim_command("tabnext " .. tab.tabnr)
-			-- 		vim.api.nvim_command("Neotree show")
-			-- 	end
-			-- end
+	{
+		"nvim-tree/nvim-tree.lua",
+		version = "*",
+		event = "VeryLazy",
+		dependencies = {
+			"nvim-tree/nvim-web-devicons",
+		},
 
-			local function toggleNeotree()
-				if not vim.g.neotreeOpened then
-					vim.api.nvim_command("Neotree reveal")
-					vim.g.neotreeOpened = true
+		config = function()
+			local tree_api = require("nvim-tree.api")
+
+			local function toggleNvimTree(toQuit)
+				toQuit = toQuit or false
+				if toQuit then
+					vim.g.NvimTreeOpened = true
+				end
+
+				local tabs = vim.api.nvim_list_tabpages()
+				local currentTab = vim.api.nvim_get_current_tabpage()
+
+				if not vim.g.NvimTreeOpened then
+					for _, tab in ipairs(tabs) do
+						vim.api.nvim_set_current_tabpage(tab)
+						tree_api.tree.find_file({ open = true, focus = false, })
+					end
+					vim.g.NvimTreeOpened = true
+					vim.api.nvim_set_current_tabpage(currentTab)
+					tree_api.tree.focus()
 				else
-					vim.api.nvim_command("Neotree close")
-					vim.g.neotreeOpened = false
+					tree_api.tree.close_in_all_tabs()
+					vim.g.NvimTreeOpened = false
+					vim.api.nvim_set_current_tabpage(currentTab)
 				end
 			end
 
-			vim.keymap.set("n", "<leader>\\", toggleNeotree, { silent = true })
-		end
+			local function openNvimTreeIfNewBuf(data)
+				local real_file = vim.fn.filereadable(data.file) == 1
+				local no_name = data.file == "" and vim.bo[data.buf].buftype == ""
+
+				if not real_file and not no_name then
+					return
+				end
+
+				if vim.g.NvimTreeOpened then
+					tree_api.tree.find_file({ open = true, focus = false, })
+				end
+			end
+
+			local function autoCloseNvimTree(data)
+				local real_file = vim.fn.filereadable(data.file) == 1
+				local no_name = data.file == "" and vim.bo[data.buf].buftype == ""
+
+				if not real_file and not no_name then
+					return
+				end
+
+				local wins = vim.api.nvim_tabpage_list_wins(vim.api.nvim_get_current_tabpage())
+				local winCount = 0
+				local nvimTreeExist = false
+				for _, w in ipairs(wins) do
+					local winType = vim.fn.win_gettype(w)
+					local bufname = vim.api.nvim_buf_get_name(vim.api.nvim_win_get_buf(w))
+
+					if winType ~= "popup" and winType ~= "preview" then
+						winCount = winCount + 1
+					end
+
+					if bufname:match("NvimTree_") ~= nil then
+						nvimTreeExist = true
+					end
+				end
+
+				if winCount <= 2 and nvimTreeExist then
+					tree_api.tree.close()
+				end
+			end
+
+
+			vim.keymap.set("n", "<leader>q", toggleNvimTree, { silent = true })
+			vim.keymap.set("n", "<leader>\\", toggleNvimTree, { silent = true })
+			vim.api.nvim_create_autocmd("BufNew", { callback = openNvimTreeIfNewBuf })
+			vim.api.nvim_create_autocmd("QuitPre", { callback = autoCloseNvimTree })
+
+			local function on_attach_func(bufnr)
+				local function opts(desc)
+					return { desc = "nvim-tree: " .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
+				end
+
+				local function escapeNvimTree()
+					vim.api.nvim_command("wincmd p")
+				end
+
+				vim.keymap.set("n", "?", tree_api.tree.toggle_help, opts("Help"))
+				vim.keymap.set("n", "Q", function() toggleNvimTree(true) end, opts("Quit"))
+				vim.keymap.set("n", "<ESC>", escapeNvimTree, opts("Help"))
+				vim.keymap.set("n", "R", tree_api.tree.reload, opts("Reload"))
+
+				vim.keymap.set("n", ".", tree_api.tree.change_root_to_node, opts("Change Root"))
+				-- vim.keymap.set("n", "zz", tree_api.tree.expand_all, opts("Toggle Node"))
+				vim.keymap.set("n", "zc", tree_api.node.navigate.parent_close, opts("Close Node"))
+				vim.keymap.set("n", "zC", tree_api.tree.collapse_all, opts("Close All Node"))
+				vim.keymap.set("n", "zx", tree_api.tree.expand_all, opts("Expand All Node"))
+
+				vim.keymap.set("n", "zh", tree_api.tree.toggle_hidden_filter, opts("Toggle Hidden File"))
+				vim.keymap.set("n", "zg", tree_api.tree.toggle_gitignore_filter, opts("Toggle Git Ignore File"))
+
+				vim.keymap.set("n", "h", tree_api.node.navigate.parent, opts("Parent Directory"))
+
+				vim.keymap.set("n", "l", tree_api.node.open.edit, opts("Open Edit"))
+				vim.keymap.set("n", "L", tree_api.node.open.no_window_picker, opts("Open Edit No Window Picker"))
+				vim.keymap.set("n", "<CR>", tree_api.node.open.tab, opts("Open New Tab"))
+				vim.keymap.set("n", "zl", tree_api.node.open.vertical, opts("Open Vertical"))
+				vim.keymap.set("n", "zj", tree_api.node.open.horizontal, opts("Open Horizontal"))
+				-- vim.keymap.set("n", "<Tab>", tree_api.node.open.preview, opts("Open Preview"))
+				vim.keymap.set("n", "i", tree_api.node.show_info_popup, opts("Show Info"))
+
+				-- if don't you have trash
+				-- vim.keymap.set("n", "dD", tree_api.fs.remove, opts("Remove"))
+				-- if you have trash
+				vim.keymap.set("n", "dD", tree_api.fs.trash, opts("Trash File"))
+				vim.keymap.set("n", "dd", tree_api.fs.cut, opts("Cut File"))
+				vim.keymap.set("n", "T", tree_api.fs.create, opts("Create File"))
+
+				vim.keymap.set("n", "yy", tree_api.fs.copy.node, opts("Copy File"))
+				vim.keymap.set("n", "yn", tree_api.fs.copy.filename, opts("Copy File Name"))
+				vim.keymap.set("n", "yp", tree_api.fs.copy.absolute_path, opts("Copy Absolute File Path"))
+				vim.keymap.set("n", "yN", tree_api.fs.copy.relative_path, opts("Copy Relative File Path"))
+				vim.keymap.set("n", "pp", tree_api.fs.paste, opts("Paste File"))
+
+				vim.keymap.set("n", "ca", tree_api.fs.rename, opts("Rename"))
+				vim.keymap.set("n", "cA", tree_api.fs.rename_basename, opts("Rename Basename"))
+				vim.keymap.set("n", "cn", tree_api.fs.rename_sub, opts("Rename Sub"))
+				vim.keymap.set("n", "cN", tree_api.fs.rename_full, opts("Rename Full"))
+
+				vim.keymap.set("n", "mm", tree_api.marks.toggle, opts("Toggle Bookmark"))
+				vim.keymap.set("n", "mj", tree_api.marks.navigate.next, opts("Next Bookmark"))
+				vim.keymap.set("n", "mk", tree_api.marks.navigate.prev, opts("Previous Bookmark"))
+				vim.keymap.set("n", "ms", tree_api.marks.navigate.select, opts("Select Bookmark"))
+				vim.keymap.set("n", "dmd", tree_api.marks.bulk.move, opts("Move Bookmarked"))
+				-- if don"t you have trash
+				-- vim.keymap.set("n", "dmD", tree_api.marks.bulk.delete, opts("Delete Bookmarked"))
+				-- if you have trash
+				vim.keymap.set("n", "dmD", tree_api.marks.bulk.trash, opts("Trash Bookmarked"))
+
+				vim.keymap.set("n", "/", tree_api.tree.search_node, opts("Search"))
+			end
+
+			vim.opt.termguicolors = true
+			require("nvim-tree").setup({
+				on_attach = on_attach_func,
+
+				sort = {
+					sorter = "name",
+					folders_first = true,
+					files_first = false,
+				},
+				view = {
+					width = 30,
+				},
+				renderer = {
+					group_empty = true,
+					special_files = { "Makefile", "README.md", "readme.md", "README", ".gitignore" },
+					symlink_destination = true,
+					highlight_git = false,
+					highlight_diagnostics = false,
+					highlight_opened_files = "name",
+					highlight_modified = "name",
+					highlight_bookmarks = "name",
+					highlight_clipboard = "name",
+					indent_markers = {
+						enable = true,
+						inline_arrows = true,
+						icons = {
+							corner = "└",
+							edge = "¦",
+							item = "¦",
+							bottom = "─",
+							none = " ",
+						},
+					},
+					icons = {
+						web_devicons = {
+							file = {
+								enable = true,
+								color = true,
+							},
+							folder = {
+								enable = true,
+								color = true,
+							},
+						},
+						git_placement = "after",
+						modified_placement = "before",
+						diagnostics_placement = "signcolumn",
+						bookmarks_placement = "signcolumn",
+						padding = " ",
+						symlink_arrow = " ➛ ",
+						show = {
+							file = true,
+							folder = true,
+							folder_arrow = true,
+							git = true,
+							modified = true,
+							diagnostics = true,
+							bookmarks = true,
+						},
+						glyphs = {
+							default = "",
+							symlink = "",
+							bookmark = "󰆤",
+							modified = "●",
+							folder = {
+								arrow_closed = "",
+								arrow_open = "",
+								default = "",
+								open = "",
+								empty = "",
+								empty_open = "",
+								symlink = "",
+								symlink_open = "",
+							},
+							git = {
+								unstaged = "󱧔",
+								staged = "󱧘",
+								unmerged = "",
+								renamed = "",
+								untracked = "",
+								deleted = "󰮉",
+								ignored = "",
+							},
+						},
+					},
+				},
+				diagnostics = {
+					enable = true,
+					show_on_dirs = false,
+					show_on_open_dirs = false,
+					debounce_delay = 50,
+					severity = {
+						min = vim.diagnostic.severity.HINT,
+						max = vim.diagnostic.severity.ERROR,
+					},
+					icons = {
+						hint = '󰌵',
+						info = ' ',
+						warning = ' ',
+						error = ' ',
+					},
+				},
+				modified = {
+					enable = true,
+					show_on_dirs = false,
+					show_on_open_dirs = false,
+				},
+				filters = {
+					dotfiles = true,
+				},
+			})
+		end,
+
 	},
 
 	{

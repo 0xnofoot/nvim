@@ -136,7 +136,7 @@ M = {
 			ensure_installed = {
 				'lua_ls',
 				'pylsp',
-				'bashls',
+				-- 'bashls',
 				'efm',
 			},
 			auto_update = false,

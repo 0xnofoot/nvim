@@ -547,7 +547,7 @@ M = {
 					files_first = false,
 				},
 				view = {
-					width = 30,
+					width = 20,
 				},
 				renderer = {
 					group_empty = true,

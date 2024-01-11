@@ -468,7 +468,7 @@ M = {
 			end
 
 
-			vim.keymap.set("n", "<leader>q", toggleNvimTree, { silent = true })
+			vim.keymap.set("n", "<leader>w", toggleNvimTree, { silent = true })
 			vim.keymap.set("n", "<leader>\\", toggleNvimTree, { silent = true })
 			vim.api.nvim_create_autocmd("BufNew", { callback = openNvimTreeIfNewBuf })
 			vim.api.nvim_create_autocmd("QuitPre", { callback = autoCloseNvimTree })

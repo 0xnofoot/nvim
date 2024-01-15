@@ -4,15 +4,39 @@ local mode_i = { "i" }
 local mode_nv = { "n", "v" }
 
 local function quitNvim()
-	local bufCount = vim.fn.len(vim.fn.getbufinfo({buflisted = 1}))
-	if bufCount > 1 then
+	local current_buf_of_win_count = #vim.fn.getbufinfo(vim.fn.bufnr('%'))[1].windows
+	local buf_count = vim.fn.len(vim.fn.getbufinfo({ buflisted = 1 }))
+
+	if current_buf_of_win_count == 1 then
 		vim.cmd("bdelete")
 	else
+		vim.cmd("close")
+	end
+
+	if buf_count == 1 then
 		vim.cmd("quit")
 	end
 end
 
+local function debugInfo()
+	local buf_count = vim.fn.len(vim.fn.getbufinfo({ buflisted = 1 }))
+	local winCount = 0
+	local wins = vim.api.nvim_tabpage_list_wins(vim.api.nvim_get_current_tabpage())
+
+	for _, win in ipairs(wins) do
+		local winType = vim.fn.win_gettype(win)
+
+		if winType ~= "popup" and winType ~= "preview" then
+			winCount = winCount + 1
+		end
+	end
+
+	print(buf_count)
+	print(winCount)
+end
+
 local nmappings = {
+	{ from = "<c-i>",        to = debugInfo,                                             mode = mode_nv },
 	-- Movement
 	{ from = "J",            to = "5j",                                                  mode = mode_nv },
 	{ from = "K",            to = "5k",                                                  mode = mode_nv },
@@ -58,7 +82,7 @@ local nmappings = {
 
 	{ from = ";",            to = ":",                                                   mode = mode_nv },
 	{ from = "S",            to = ":write<CR>",                                          mode = mode_nv },
-	{ from = "Q",            to = quitNvim,                                             mode = mode_nv },
+	{ from = "Q",            to = quitNvim,                                              mode = mode_nv },
 
 	{ from = "`",            to = "~",                                                   mode = mode_nv },
 	{ from = "'",            to = "%",                                                   mode = mode_nv },

@@ -40,8 +40,5 @@ require("lazy").setup({
 	-- 运行和调试
 	require("config.plugins.compile_run"),
 	require("config.plugins.debugger"),
-
-	-- others
-	require("config.plugins.fun"),
 })
 

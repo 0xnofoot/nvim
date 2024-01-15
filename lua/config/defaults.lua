@@ -103,9 +103,9 @@ vim.o.updatetime = 100
 vim.o.virtualedit = 'block'
 
 -- 允许在切换 buffer 时隐藏未保存的文件
--- vim.o.hidden = true
+vim.o.hidden = true
 -- 切换 buffer 时优先使用已打开的窗口或标签页
--- vim.o.switchbuf = "useopen,usetab"
+vim.o.switchbuf = "useopen"
 
 -- 当进入缓冲区时将工作目录设为当前目录
 vim.api.nvim_create_autocmd("BufEnter", { pattern = "*", command = "silent! lcd %:p:h", })

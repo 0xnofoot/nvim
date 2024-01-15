@@ -401,40 +401,23 @@ M = {
 		config = function()
 			local tree_api = require("nvim-tree.api")
 
-			local function toggleNvimTree(toQuit)
-				toQuit = toQuit or false
-				if toQuit then
-					vim.g.NvimTreeOpened = true
-				end
-
-				local tabs = vim.api.nvim_list_tabpages()
+			local function toggleNvimTree()
 				local currentTab = vim.api.nvim_get_current_tabpage()
+				local isCurrentTabOpenNvimtree = "nvim_tab_page_is_open_nvimtree_" .. currentTab
 
-				if not vim.g.NvimTreeOpened then
-					for _, tab in ipairs(tabs) do
-						vim.api.nvim_set_current_tabpage(tab)
-						tree_api.tree.find_file({ open = true, focus = false, })
+				local current_bufname = vim.api.nvim_buf_get_name(0)
+				local buffer_is_nvimtree = current_bufname:match("NvimTree_") ~= nil
+
+				if not buffer_is_nvimtree then
+					if not vim.g[isCurrentTabOpenNvimtree] then
+						tree_api.tree.find_file({ open = true, focus = true, })
+						vim.g[isCurrentTabOpenNvimtree] = true
+					else
+						tree_api.tree.focus()
 					end
-					vim.g.NvimTreeOpened = true
-					vim.api.nvim_set_current_tabpage(currentTab)
-					tree_api.tree.focus()
 				else
-					tree_api.tree.close_in_all_tabs()
-					vim.g.NvimTreeOpened = false
-					vim.api.nvim_set_current_tabpage(currentTab)
-				end
-			end
-
-			local function openNvimTreeIfNewBuf(data)
-				local real_file = vim.fn.filereadable(data.file) == 1
-				local no_name = data.file == "" and vim.bo[data.buf].buftype == ""
-
-				if not real_file and not no_name then
-					return
-				end
-
-				if vim.g.NvimTreeOpened then
-					tree_api.tree.find_file({ open = true, focus = false, })
+					tree_api.tree.close()
+					vim.g[isCurrentTabOpenNvimtree] = nil
 				end
 			end
 
@@ -469,8 +452,6 @@ M = {
 
 
 			vim.keymap.set("n", "<leader>w", toggleNvimTree, { silent = true })
-			vim.keymap.set("n", "<leader>\\", toggleNvimTree, { silent = true })
-			vim.api.nvim_create_autocmd("BufNew", { callback = openNvimTreeIfNewBuf })
 			vim.api.nvim_create_autocmd("QuitPre", { callback = autoCloseNvimTree })
 
 			local function on_attach_func(bufnr)
@@ -482,9 +463,20 @@ M = {
 					vim.api.nvim_command("wincmd p")
 				end
 
+				local function openNewTab()
+					escapeNvimTree()
+					tree_api.node.open.tab()
+				end
+
+				local function voidFunction()
+				end
+
 				vim.keymap.set("n", "?", tree_api.tree.toggle_help, opts("Help"))
-				vim.keymap.set("n", "Q", function() toggleNvimTree(true) end, opts("Quit"))
+				vim.keymap.set("n", "Q", tree_api.tree.close, opts("Quit"))
 				vim.keymap.set("n", "<ESC>", escapeNvimTree, opts("Help"))
+				vim.keymap.set("n", "<c-h>", voidFunction, opts("Help"))
+				vim.keymap.set("n", "<c-l>", voidFunction, opts("Help"))
+
 				vim.keymap.set("n", "R", tree_api.tree.reload, opts("Reload"))
 
 				vim.keymap.set("n", ".", tree_api.tree.change_root_to_node, opts("Change Root"))
@@ -499,11 +491,13 @@ M = {
 				vim.keymap.set("n", "h", tree_api.node.navigate.parent, opts("Parent Directory"))
 
 				vim.keymap.set("n", "l", tree_api.node.open.edit, opts("Open Edit"))
-				vim.keymap.set("n", "L", tree_api.node.open.no_window_picker, opts("Open Edit No Window Picker"))
-				vim.keymap.set("n", "<CR>", tree_api.node.open.tab, opts("Open New Tab"))
+				vim.keymap.set("n", "<CR>", tree_api.node.open.no_window_picker, opts("Open Edit No Window Picker"))
+				vim.keymap.set("n", "<c-t>", openNewTab, opts("Open New Tab"))
 				vim.keymap.set("n", "zl", tree_api.node.open.vertical, opts("Open Vertical"))
 				vim.keymap.set("n", "zj", tree_api.node.open.horizontal, opts("Open Horizontal"))
+
 				-- vim.keymap.set("n", "<Tab>", tree_api.node.open.preview, opts("Open Preview"))
+
 				vim.keymap.set("n", "i", tree_api.node.show_info_popup, opts("Show Info"))
 
 				-- if don't you have trash
@@ -525,9 +519,11 @@ M = {
 				vim.keymap.set("n", "cN", tree_api.fs.rename_full, opts("Rename Full"))
 
 				vim.keymap.set("n", "mm", tree_api.marks.toggle, opts("Toggle Bookmark"))
+				-- TODO: navigate don't work
 				vim.keymap.set("n", "mj", tree_api.marks.navigate.next, opts("Next Bookmark"))
 				vim.keymap.set("n", "mk", tree_api.marks.navigate.prev, opts("Previous Bookmark"))
 				vim.keymap.set("n", "ms", tree_api.marks.navigate.select, opts("Select Bookmark"))
+				vim.keymap.set("n", "mx", tree_api.marks.clear, opts("Select Bookmark"))
 				vim.keymap.set("n", "dmd", tree_api.marks.bulk.move, opts("Move Bookmarked"))
 				-- if don"t you have trash
 				-- vim.keymap.set("n", "dmD", tree_api.marks.bulk.delete, opts("Delete Bookmarked"))

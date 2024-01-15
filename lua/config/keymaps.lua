@@ -1,8 +1,17 @@
 vim.g.mapleader = " "
 
-local mode_nv = { "n", "v" }
-local mode_v = { "v" }
 local mode_i = { "i" }
+local mode_nv = { "n", "v" }
+
+local function quitNvim()
+	local bufCount = vim.fn.len(vim.fn.getbufinfo({buflisted = 1}))
+	if bufCount > 1 then
+		vim.cmd("bdelete")
+	else
+		vim.cmd("quit")
+	end
+end
+
 local nmappings = {
 	-- Movement
 	{ from = "J",            to = "5j",                                                  mode = mode_nv },
@@ -14,55 +23,55 @@ local nmappings = {
 	{ from = "W",            to = "3w",                                                  mode = mode_nv },
 	{ from = "E",            to = "3e",                                                  mode = mode_nv },
 	{ from = "B",            to = "3b",                                                  mode = mode_nv },
-	{ from = "0",            to = "0",                                                   mode = mode_nv },
-	{ from = "$",            to = "$",                                                   mode = mode_nv },
-	{ from = "c,",           to = "c%", },
 
 	-- Window & splits
-	{ from = "zh",           to = ":set nosplitright<CR>:vsplit<CR>:set splitright<CR>", },
-	{ from = "zj",           to = ":set splitbelow<CR>:split<CR>", },
-	{ from = "zk",           to = ":set nosplitbelow<CR>:split<CR>:set splitbelow<CR>", },
-	{ from = "zl",           to = ":set splitright<CR>:vsplit<CR>", },
-	{ from = "<leader>w",    to = "<C-w>w", },
-	{ from = "<leader>k",    to = "<C-w>k", },
-	{ from = "<leader>j",    to = "<C-w>j", },
-	{ from = "<leader>h",    to = "<C-w>h", },
-	{ from = "<leader>l",    to = "<C-w>l", },
-	{ from = "<up>",         to = ":res +5<CR>", },
-	{ from = "<down>",       to = ":res -5<CR>", },
-	{ from = "<left>",       to = ":vertical resize-5<CR>", },
-	{ from = "<right>",      to = ":vertical resize+5<CR>", },
-	{ from = "zrh",          to = "<C-w>b<C-w>K", },
-	{ from = "zrv",          to = "<C-w>b<C-w>H", },
-	{ from = "zq",           to = "<C-w>o", },
+	{ from = "zh",           to = ":set nosplitright<CR>:vsplit<CR>:set splitright<CR>", mode = mode_nv },
+	{ from = "zj",           to = ":set splitbelow<CR>:split<CR>",                       mode = mode_nv },
+	{ from = "zk",           to = ":set nosplitbelow<CR>:split<CR>:set splitbelow<CR>",  mode = mode_nv },
+	{ from = "zl",           to = ":set splitright<CR>:vsplit<CR>",                      mode = mode_nv },
+	{ from = "<leader>k",    to = ":wincmd k<CR>",                                       mode = mode_nv },
+	{ from = "<leader>j",    to = ":wincmd j<CR>",                                       mode = mode_nv },
+	{ from = "<leader>h",    to = ":wincmd h<CR>",                                       mode = mode_nv },
+	{ from = "<leader>l",    to = ":wincmd l<CR>",                                       mode = mode_nv },
+	{ from = "<up>",         to = ":res +5<CR>",                                         mode = mode_nv },
+	{ from = "<down>",       to = ":res -5<CR>",                                         mode = mode_nv },
+	{ from = "<left>",       to = ":vertical resize-5<CR>",                              mode = mode_nv },
+	{ from = "<right>",      to = ":vertical resize+5<CR>",                              mode = mode_nv },
+	{ from = "zq",           to = ":close<CR>",                                          mode = mode_nv },
+	{ from = "zQ",           to = ":on<CR>",                                             mode = mode_nv },
+
+	-- Buffer management
+	{ from = "te",           to = ":enew<CR>",                                           mode = mode_nv },
+	{ from = "<c-h>",        to = ":bprevious<CR>",                                      mode = mode_nv },
+	{ from = "<c-l>",        to = ":bnext<CR>",                                          mode = mode_nv },
 
 	-- Tab management
-	{ from = "tt",           to = ":tabe<CR>", },
-	{ from = "ts",           to = ":tab split<CR>", },
-	{ from = "th",           to = ":-tabnext<CR>", },
-	{ from = "tl",           to = ":+tabnext<CR>", },
-	{ from = "tH",           to = ":-tabmove<CR>", },
-	{ from = "tL",           to = ":+tabmove<CR>", },
-	{ from = "<c-h>",        to = ":-tabnext<CR>", },
-	{ from = "<c-l>",        to = ":+tabnext<CR>", },
+	{ from = "tb",           to = ":tabe<CR>",                                           mode = mode_nv },
+	{ from = "th",           to = ":-tabnext<CR>",                                       mode = mode_nv },
+	{ from = "tl",           to = ":+tabnext<CR>",                                       mode = mode_nv },
+	{ from = "tq",           to = ":tabclose<CR>",                                       mode = mode_nv },
 
 	-- Useful actions
-	{ from = "S",            to = ":w<CR>" },
-	{ from = "Q",            to = ":q<CR>" },
-	{ from = ";",            to = ":",                                                   mode = mode_nv },
-	{ from = "Y",            to = "\"+y",                                                mode = mode_v },
-	{ from = "`",            to = "~",                                                   mode = mode_nv },
-	{ from = "U",            to = "<c-r>",                                               mode = mode_nv },
+	{ from = "<c-w>",        to = "<nop>",                                               mode = mode_nv },
 	{ from = "q",            to = "<nop>",                                               mode = mode_nv },
+	{ from = "Q",            to = "<nop>",                                               mode = mode_nv },
 
-	{ from = ",",            to = "%",                                                   mode = mode_nv },
-	{ from = "v.",           to = "v$h", },
-	{ from = "v,",           to = "v%" },
-	{ from = "<c-y>",        to = "<ESC>A {}<ESC>i<CR><ESC>ko",                          mode = mode_i },
+	{ from = ";",            to = ":",                                                   mode = mode_nv },
+	{ from = "S",            to = ":write<CR>",                                          mode = mode_nv },
+	{ from = "Q",            to = quitNvim,                                             mode = mode_nv },
+
+	{ from = "`",            to = "~",                                                   mode = mode_nv },
+	{ from = "'",            to = "%",                                                   mode = mode_nv },
+	{ from = ",",            to = "0",                                                   mode = mode_nv },
+	{ from = ".",            to = "$",                                                   mode = mode_nv },
+
+	{ from = "v.",           to = "v$h",                                                 mode = mode_nv },
+	{ from = "v'",           to = "v%",                                                  mode = mode_nv },
+	{ from = "c'",           to = "c%",                                                  mode = mode_nv },
+
+	{ from = "U",            to = "<c-r>",                                               mode = mode_nv },
 	{ from = "<leader><rc>", to = ":nohlsearch<CR>" },
-	{ from = "<leader>sc",   to = ":set spell!<CR>" },
-	{ from = "<leader>o",    to = "za" },
-
+	-- { from = "<leader>sc",   to = ":set spell!<CR>" },
 }
 
 for _, mapping in ipairs(nmappings) do

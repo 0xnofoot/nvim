@@ -45,7 +45,7 @@ M = {
 				theme = {
 					normal = { fg = "#D2691E", bg = "#3C424B", bold = false },
 
-					ellipsis = { fg = "#CFCFCF"},
+					ellipsis = { fg = "#CFCFCF" },
 					separator = { fg = "#87CEFF", bold = true },
 					modified = { fg = "#FFD700" },
 
@@ -87,22 +87,24 @@ M = {
 
 	{
 		-- 上方选项卡
-		'akinsho/bufferline.nvim',
-		event = 'VeryLazy',
-		version = '*',
-		dependencies = 'nvim-tree/nvim-web-devicons',
+		"akinsho/bufferline.nvim",
+		event = "VeryLazy",
+		version = "*",
+		dependencies = {
+			"nvim-tree/nvim-web-devicons",
+		},
 		opts = {
 			options = {
-				mode = 'tabs',
-				diagnostics = 'nvim_lsp',
+				mode = "buffers",
+				diagnostics = "nvim_lsp",
 				diagnostics_indicator = function(count, level, diagnostics_dict, context)
-					local icon = level:match('error') and ' ' or ' '
-					return ' ' .. icon .. count
+					local icon = level:match("error") and " " or " "
+					return " " .. icon .. count
 				end,
 				indicator = {
-					icon = '▎', -- this should be omitted if indicator style is not 'icon'
-					-- style = 'icon' | 'underline' | 'none',
-					style = 'icon',
+					icon = "▎", -- this should be omitted if indicator style is not "icon"
+					-- style = "icon" | "underline" | "none",
+					style = "icon",
 				},
 				show_buffer_close_icons = false,
 				show_close_icon = false,
@@ -110,7 +112,7 @@ M = {
 				show_duplicate_prefix = false,
 				tab_size = 16,
 				padding = 0,
-				separator_style = 'thick',
+				separator_style = "thick",
 			}
 		},
 	},

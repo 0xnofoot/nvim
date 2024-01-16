@@ -13,6 +13,7 @@ L = {
 				},
 
 				cmd = {
+					-- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/sourcekit-lsp",
 					vim.g.sourcekit_path,
 				},
 
@@ -28,6 +29,17 @@ L = {
 					completeFunctionCalls = true,
 				},
 			})
+
+			-- 将 swiftinterface 文件当成 swift 文件 解析
+			-- 这样子可以正确解析，但会出现一些麻烦，比如 诊断时会将 swiftinterface 文件也加入诊断
+			-- LsoLog 中 sourcekit 的一个报错好像也与这个有关（存疑）
+			-- todo 只是想 swiftinterface 文件有个高亮好辨识一点
+			-- vim.cmd([[
+			-- 	augroup SwiftInterface
+			-- 	  autocmd!
+			-- 	  autocmd BufNewFile,BufRead *.swiftinterface set filetype=swift
+			-- 	augroup END
+			-- ]])
 		end,
 	},
 

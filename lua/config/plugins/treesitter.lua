@@ -15,7 +15,7 @@ M = {
 			ensure_installed = { 'c', 'lua', 'vim', 'vimdoc', 'query', 'python', 'bash', 'swift', 'objc' },
 
 			indent = {
-				enable = true
+				enable = false
 			},
 
 			ignore_install = {
@@ -37,13 +37,13 @@ M = {
 				disable = {
 				},
 
-				additional_vim_regex_highlighting = true,
+				additional_vim_regex_highlighting = false,
 			},
 
 			rainbow = {
-				enable = true,
+				enable = false,
 				disable = {},
-				extended_mode = true,
+				extended_mode = false,
 				max_file_lines = nil,
 			}
 		})

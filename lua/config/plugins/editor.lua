@@ -401,75 +401,86 @@ M = {
 		config = function()
 			local tree_api = require("nvim-tree.api")
 
-			local function toggleNvimTree()
+			local function getCurrentTabTreeOpenedState()
 				local current_tabnr = vim.api.nvim_get_current_tabpage()
-				local isCurrentTabOpenNvimtree = "nvim_tab_page_is_open_nvimtree_" .. current_tabnr
+				local tree_state = "current_tab_nvim_tree_opened_state_" .. current_tabnr
+
+				return tree_state
+			end
+
+			local function toggleNvimTree()
+				local current_tab_tree_opened_state = getCurrentTabTreeOpenedState()
 
 				local current_bufname = vim.api.nvim_buf_get_name(0)
 				local buffer_is_nvimtree = current_bufname:match("NvimTree_") ~= nil
 
 				if not buffer_is_nvimtree then
-					if not vim.g[isCurrentTabOpenNvimtree] then
+					if not vim.g[current_tab_tree_opened_state] then
 						tree_api.tree.find_file({ open = true, focus = true, })
-						vim.g[isCurrentTabOpenNvimtree] = true
+						vim.g[current_tab_tree_opened_state] = true
 					else
 						tree_api.tree.focus()
 					end
 				else
 					tree_api.tree.close()
-					vim.g[isCurrentTabOpenNvimtree] = nil
-				end
-			end
-
-			--TODO: dont work
-			local function autoCloseNvimTree(data)
-				local buffer_is_nvimtree = require("nvim-tree.utils").is_nvim_tree_buf()
-
-				if not buffer_is_nvimtree then
-					return
-				end
-
-				local current_tabnr = vim.api.nvim_get_current_tabpage()
-				local isCurrentTabOpenNvimtree = "nvim_tab_page_is_open_nvimtree_" .. current_tabnr
-
-				local tab_count = #vim.api.nvim_list_tabpages()
-
-				local wins = vim.api.nvim_tabpage_list_wins(vim.api.nvim_get_current_tabpage())
-				local buf_count = vim.fn.len(vim.fn.getbufinfo({ buflisted = 1 }))
-				local winCount = 0
-
-				for _, win in ipairs(wins) do
-					local winType = vim.fn.win_gettype(win)
-
-					if winType ~= "popup" and winType ~= "preview" then
-						winCount = winCount + 1
-					end
-				end
-
-				if winCount == 1 then
-					if tab_count == 1 then
-						if buf_count == 1 then
-							vim.cmd("quit")
-						else
-							print("in 4")
-							-- vim.cmd("bdelete")
-							-- tree_api.tree.close()
-							-- vim.g[isCurrentTabOpenNvimtree] = nil
-							-- vim.cmd("bnext")
-							-- vim.cmd("tabclose")
-						end
-					else
-						tree_api.tree.close()
-					end
+					vim.g[current_tab_tree_opened_state] = nil
 				end
 			end
 
 			vim.keymap.set("n", "<leader>w", toggleNvimTree, { silent = true })
-			vim.api.nvim_create_autocmd({ "WinEnter" }, { callback = autoCloseNvimTree })
+
+			-- Win Close
+			vim.api.nvim_create_autocmd({ "WinEnter" }, {
+				callback = function()
+					if not vim.g[getCurrentTabTreeOpenedState()] then
+						return
+					end
+
+					local current_tab_win_count = 0
+					local wins = vim.api.nvim_tabpage_list_wins(vim.api.nvim_get_current_tabpage())
+					for _, win in ipairs(wins) do
+						local winType = vim.fn.win_gettype(win)
+
+						if winType ~= "popup" and winType ~= "preview" then
+							current_tab_win_count = current_tab_win_count + 1
+						end
+					end
+
+					local tab_count = #vim.api.nvim_list_tabpages()
+
+					if tab_count > 1 and current_tab_win_count == 1 then
+						tree_api.tree.close()
+					end
+				end,
+
+				nested = true
+			})
+
+			-- Buf Delete (Leave it to keymaps.lua for quit rule function management: quitNvim() )
+			vim.g.getCurrentTabTreeOpenedState = getCurrentTabTreeOpenedState()
+
+			-- Quit
+			vim.api.nvim_create_autocmd({ "QuitPre" }, {
+				callback = function()
+					if not vim.g[getCurrentTabTreeOpenedState()] then
+						return
+					end
+					tree_api.tree.close()
+				end,
+
+				nested = true
+			})
 
 			local function on_attach_func(bufnr)
 				local function opts(desc)
 					return { desc = "nvim-tree: " .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
+				end
+
+				local function closeNvimtree()
+					local current_tab_tree_opened_state = getCurrentTabTreeOpenedState()
+
+					vim.cmd("quit")
+					vim.g[current_tab_tree_opened_state] = nil
 				end
 
 				local function escapeNvimTree()
@@ -491,7 +502,7 @@ M = {
 				end
 
 				vim.keymap.set("n", "?", tree_api.tree.toggle_help, opts("Help"))
-				vim.keymap.set("n", "Q", tree_api.tree.close, opts("Quit"))
+				vim.keymap.set("n", "Q", closeNvimtree, opts("Quit"))
 				vim.keymap.set("n", "<ESC>", escapeNvimTree, opts("Help"))
 				vim.keymap.set("n", "<c-h>", function() reMapBufMove("previous") end, opts("Previous Buf"))
 				vim.keymap.set("n", "<c-l>", function() reMapBufMove("next") end, opts("Next Buf"))

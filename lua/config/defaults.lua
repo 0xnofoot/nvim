@@ -104,7 +104,7 @@ vim.o.virtualedit = 'block'
 
 -- 允许在切换 buffer 时隐藏未保存的文件
 vim.o.hidden = true
--- 切换 buffer 时优先使用已打开的窗口或标签页
+-- 切换 buffer 时优先使用已打开的窗口
 vim.o.switchbuf = "useopen"
 
 -- 当进入缓冲区时将工作目录设为当前目录
@@ -115,19 +115,19 @@ vim.cmd([[au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe 
 
 
 -- util function
-local function printTable(table, indent)
+local function showDeepTable(table, indent)
 	indent = indent or 0
 	for key, value in pairs(table) do
 		if type(value) == "table" then
 			print(string.rep("  ", indent) .. key .. ":")
-			printTable(value, indent + 1)
+			showDeepTable(value, indent + 1)
 		else
 			print(string.rep("  ", indent) .. key .. ": " .. tostring(value))
 		end
 	end
 end
 
-vim.g.printTableForDebug = printTable
+vim.g.showDeepTable = showDeepTable
 
 -- 读取 config.machine_specific.lua 文件，如果没有该文件则创建该文件并复制对应内容
 local config_path = vim.fn.stdpath("config")

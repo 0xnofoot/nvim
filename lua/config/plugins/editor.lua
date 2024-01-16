@@ -1,43 +1,43 @@
 M = {
 	{
 		-- 相同词汇高亮
-		'RRethy/vim-illuminate',
+		"RRethy/vim-illuminate",
 		config = function()
-			require('illuminate').configure({
+			require("illuminate").configure({
 				providers = {
-					-- 'lsp',
-					-- 'treesitter',
-					'regex',
+					-- "lsp",
+					-- "treesitter",
+					"regex",
 				},
 			})
-			vim.cmd('hi IlluminatedWordText guibg=#494F4D gui=none')
+			vim.cmd("hi IlluminatedWordText guibg=#494F4D gui=none")
 		end
 	},
 
 	{
 		-- 自动补全列表符号
-		'dkarter/bullets.vim',
-		event = 'VeryLazy',
-		ft = { 'markdown', 'txt' },
+		"dkarter/bullets.vim",
+		event = "VeryLazy",
+		ft = { "markdown", "txt" },
 	},
 
 	{
 		-- 背景显示颜色字符
-		'NvChad/nvim-colorizer.lua',
+		"NvChad/nvim-colorizer.lua",
 		event = "VeryLazy",
 		opts = {
-			filetypes = { '*' },
+			filetypes = { "*" },
 			user_default_options = {
 				RGB      = true, -- #RGB hex codes
 				RRGGBB   = true, -- #RRGGBB hex codes like #8080ff
-				names    = true, -- 'Name' codes like Blue
+				names    = true, -- "Name" codes like Blue
 				RRGGBBAA = true, -- #RRGGBBAA hex codes like
 				rgb_fn   = true, -- CSS rgb() and rgba() functions
 				hsl_fn   = true, -- CSS hsl() and hsla() functions
 				css      = true, -- Enable all CSS features: rgb_fn, hsl_fn, names, RGB, RRGGBB
 				css_fn   = true, -- Enable all CSS *functions*: rgb_fn, hsl_fn
 				-- Available modes: foreground, background
-				mode     = 'background', -- Set the display mode.
+				mode     = "background", -- Set the display mode.
 			},
 			-- all the sub-options of filetypes apply to buftypes
 			buftypes = {},
@@ -46,12 +46,13 @@ M = {
 
 	{
 		-- 折叠功能强化
-		'kevinhwang91/nvim-ufo',
-		dependencies = { 'kevinhwang91/promise-async', },
+		"kevinhwang91/nvim-ufo",
+		event = "VeryLazy",
+		dependencies = { "kevinhwang91/promise-async", },
 		config = function()
 			local handler = function(virtText, lnum, endLnum, width, truncate)
 				local newVirtText = {}
-				local suffix = (' ... %d 󰁂 ... '):format(endLnum - lnum)
+				local suffix = (" ... %d 󰁂 ... "):format(endLnum - lnum)
 				local sufWidth = vim.fn.strdisplaywidth(suffix)
 				local targetWidth = width - sufWidth
 				local curWidth = 0
@@ -67,36 +68,36 @@ M = {
 						chunkWidth = vim.fn.strdisplaywidth(chunkText)
 						-- str width returned from truncate() may less than 2nd argument, need padding
 						if curWidth + chunkWidth < targetWidth then
-							suffix = suffix .. (' '):rep(targetWidth - curWidth - chunkWidth)
+							suffix = suffix .. (" "):rep(targetWidth - curWidth - chunkWidth)
 						end
 						break
 					end
 					curWidth = curWidth + chunkWidth
 				end
-				table.insert(newVirtText, { suffix, 'MoreMsg' })
+				table.insert(newVirtText, { suffix, "MoreMsg" })
 				return newVirtText
 			end
 
-			require('ufo').setup({
+			require("ufo").setup({
 				enable_get_fold_virt_text = true,
 				fold_virt_text_handler = handler,
 				open_fold_hl_timeout = 150,
-				close_fold_kinds = { 'imports', 'comment' },
+				close_fold_kinds = { "imports", "comment" },
 				preview = {
 					win_config = {
-						border = { '', '─', '', '', '', '─', '', '' },
-						winhighlight = 'Normal:Folded',
+						border = { "", "─", "", "", "", "─", "", "" },
+						winhighlight = "Normal:Folded",
 						winblend = 0
 					},
 					mappings = {
-						scrollU = '<C-u>',
-						scrollD = '<C-d>',
-						jumpTop = '[',
-						jumpBot = ']'
+						scrollU = "<C-u>",
+						scrollD = "<C-d>",
+						jumpTop = "[",
+						jumpBot = "]"
 					}
 				},
 				provider_selector = function(bufnr, filetype, buftype)
-					return { 'treesitter', 'indent' }
+					return { "treesitter", "indent" }
 				end,
 			})
 
@@ -109,60 +110,60 @@ M = {
 
 	{
 		-- 补全括号
-		'windwp/nvim-autopairs',
+		"windwp/nvim-autopairs",
+		event = "BufRead",
 		config = function()
-			require('nvim-autopairs').setup({})
+			require("nvim-autopairs").setup({})
 		end
 	},
 
 	{
 		-- 快速注释
-		'tomtom/tcomment_vim',
-		event = 'BufRead',
+		"tomtom/tcomment_vim",
+		event = "BufRead",
 		config = function()
 			vim.g.tcomment_maps = true
-			vim.g.tcomment_textobject_inlinecomment = ''
+			vim.g.tcomment_textobject_inlinecomment = ""
 
 			-- 不知道怎么绑定 ctrl+/, 好像 vim 中 使用 <c-_> 代替 <c-/>
-			-- 但是这可能在 tmux 中不起作用
-			-- Todo
-			vim.keymap.set({ 'n', 'i', 'v' }, '<C-c>', ':TComment<CR>', { silent = true })
+			-- 但是这可能在 tmux 中不起作用, 使用 <c-c> 代替
+			vim.keymap.set({ "n", "i", "v" }, "<c-c>", ":TComment<CR>", { silent = true })
 		end
 	},
 
 	{
 		-- 对于被括号或其他符号包围的内容
 		-- 提供一系列快速操作方案
-		'kylechui/nvim-surround',
-		version = '*',
-		event = 'VeryLazy',
+		"kylechui/nvim-surround",
+		event = "VeryLazy",
+		version = "*",
 		config = function()
-			require('nvim-surround').setup()
+			require("nvim-surround").setup()
 		end
 	},
 
 	{
 		-- 复制粘贴增强
-		'gbprod/yanky.nvim',
-		event = 'VeryLazy',
+		"gbprod/yanky.nvim",
+		event = "VeryLazy",
 		dependencies = {
-			'kkharji/sqlite.lua',
+			"kkharji/sqlite.lua",
 		},
 		config = function()
 			-- 使用系统剪切板
-			vim.cmd [[set clipboard=unnamedplus]]
+			vim.cmd("set clipboard=unnamedplus")
 
-			vim.keymap.set('n', '<c-p>', '<Plug>(YankyCycleForward)')
-			vim.keymap.set('n', '<c-n>', '<Plug>(YankyCycleBackward)')
-			vim.keymap.set({ 'n', 'x' }, 'p', '<Plug>(YankyPutAfter)')
-			vim.keymap.set({ 'n', 'x' }, 'P', '<Plug>(YankyPutBefore)')
+			vim.keymap.set("n", "<c-p>", "<Plug>(YankyCycleForward)")
+			vim.keymap.set("n", "<c-n>", "<Plug>(YankyCycleBackward)")
+			vim.keymap.set({ "n", "x" }, "p", "<Plug>(YankyPutAfter)")
+			vim.keymap.set({ "n", "x" }, "P", "<Plug>(YankyPutBefore)")
 
-			require('yanky').setup({
+			require("yanky").setup({
 				ring = {
 					history_length = 2000,
-					storage = 'sqlite',
+					storage = "sqlite",
 					sync_with_numbered_registers = true,
-					cancel_event = 'update',
+					cancel_event = "update",
 				},
 				picker = {
 					select = {
@@ -186,42 +187,25 @@ M = {
 
 	{
 		-- 全屏并浮动当前窗口
-		'nyngwang/NeoZoom.lua',
+		"nyngwang/NeoZoom.lua",
+		event = "VeryLazy",
 		config = function()
-			vim.keymap.set('n', '<leader>;', ':NeoZoomToggle<CR>', { silent = true, nowait = true })
-			require('neo-zoom').setup {
+			vim.keymap.set("n", "<leader>;", ":NeoZoomToggle<CR>", { silent = true, nowait = true })
+			require("neo-zoom").setup {
 				popup = { enabled = true }, -- this is the default.
-				-- NOTE: Add popup-effect (replace the window on-zoom with a `[No Name]`).
-				-- EXPLAIN: This improves the performance, and you won't see two
-				--          identical buffers got updated at the same time.
-				-- popup = {
-				--   enabled = true,
-				--   exclude_filetypes = {},
-				--   exclude_buftypes = {},
-				-- },
-				exclude_buftypes = { 'terminal' },
-				-- exclude_filetypes = { 'lspinfo', 'mason', 'lazy', 'fzf', 'qf' },
+				-- TODO: Dangerous for Telescope
+				exclude_buftypes = { "terminal" },
+				exclude_filetypes = { "lspinfo", "mason", "lazy", "fzf", },
 				winopts = {
 					offset = {
-						-- NOTE: omit `top`/`left` to center the floating window vertically/horizontally.
-						-- top = 0,
-						-- left = 0.17,
 						width = 1.0,
 						height = 1.0,
 					},
-					-- NOTE: check :help nvim_open_win() for possible border values.
-					border = 'thicc', -- this is a preset, try it :)
+					border = "thicc", -- this is a preset, try it :)
 				},
 				presets = {
-					-- {
-					-- 	-- NOTE: regex pattern can be used here!
-					-- 	filetypes = { 'dapui_.*', 'dap-repl' },
-					-- 	winopts = {
-					-- 		offset = { top = 0.02, left = 0.26, width = 0.74, height = 0.25 },
-					-- 	},
-					-- },
 					{
-						filetypes = { 'markdown' },
+						filetypes = { "markdown" },
 						callbacks = {
 							function() vim.wo.wrap = true end,
 						},
@@ -233,42 +217,31 @@ M = {
 
 	{
 		-- 当前页面快速搜索跳转
-		'folke/flash.nvim',
-		event = 'VeryLazy',
+		"folke/flash.nvim",
+		event = "VeryLazy",
 		opts = {
-			labels = 'arstneiowfuydh',
+			labels = "arstneiowfuydh",
 			jump = {
 				jumplist = true,
-				pos = 'start', ---@type 'start' | 'end' | 'range'
+				pos = "start",
 				history = false,
 				register = false,
 				nohlsearch = false,
 				autojump = false,
-				inclusive = nil, ---@type boolean?
+				inclusive = nil,
 			},
 			label = {
 				uppercase = false,
-				exclude = '',
+				exclude = "",
 				current = false,
-				-- show the label after the match
-				after = true, ---@type boolean|number[]
-				-- show the label before the match
-				before = false, ---@type boolean|number[]
-				-- position of the label extmark
-				style = 'inline', ---@type 'eol' | 'overlay' | 'right_align' | 'inline'
-				-- flash tries to re-use labels that were already assigned to a position,
-				-- when typing more characters. By default only lower-case labels are re-used.
-				reuse = 'all', ---@type 'lowercase' | 'all'
-				-- for the current window, label targets closer to the cursor first
+				after = true,
+				before = false,
+				style = "inline",
+				reuse = "all",
 				distance = true,
-				-- minimum pattern length to show labels
-				-- Ignored for custom labelers.
 				min_pattern_length = 0,
-				-- Enable this to use rainbow colors to highlight labels
-				-- Can be useful for visualizing Treesitter ranges.
 				rainbow = {
 					enabled = true,
-					-- number between 1 and 9
 					shade = 8,
 				},
 			},
@@ -280,20 +253,20 @@ M = {
 					enabled = false,
 				},
 				treesitter = {
-					labels = 'arstneiowfuydh',
-					jump = { pos = 'range' },
+					labels = "arstneiowfuydh",
+					jump = { pos = "range" },
 					search = { incremental = false },
-					label = { before = true, after = true, style = 'inline' },
+					label = { before = true, after = true, style = "inline" },
 					highlight = {
 						backdrop = false,
 						matches = false,
 					},
 				},
 				treesitter_search = {
-					jump = { pos = 'range' },
+					jump = { pos = "range" },
 					search = { multi_window = true, wrap = true, incremental = false },
 					remote_op = { restore = true },
-					label = { before = true, after = true, style = 'inline' },
+					label = { before = true, after = true, style = "inline" },
 				},
 				-- options used for remote flash
 				remote = {
@@ -302,38 +275,38 @@ M = {
 			},
 			prompt = {
 				enabled = true,
-				prefix = { { '⚡', 'FlashPromptIcon' } },
+				prefix = { { "⚡", "FlashPromptIcon" } },
 				win_config = {
-					relative = 'editor',
-					width = 1, -- when <=1 it's a percentage of the editor width
+					relative = "editor",
+					width = 1, -- when <=1 it"s a percentage of the editor width
 					height = 1,
-					row = -1, -- when negative it's an offset from the bottom
-					col = 0, -- when negative it's an offset from the right
+					row = -1, -- when negative it"s an offset from the bottom
+					col = 0, -- when negative it"s an offset from the right
 					zindex = 1000,
 				},
 			},
 		},
 		keys = {
 			{
-				'<leader>f',
-				mode = { 'n' },
+				"<leader>f",
+				mode = { "n" },
 				function()
-					require('flash').jump({
+					require("flash").jump({
 						remote_op = {
 							restore = true,
 							motion = true,
 						},
 					})
 				end,
-				desc = 'Flash',
+				desc = "Flash",
 			},
 			{
-				'<leader><esc>f',
-				mode = { 'n', 'o', 'x' },
+				"<leader><esc>f",
+				mode = { "n", "o", "x" },
 				function()
-					require('flash').treesitter()
+					require("flash").treesitter()
 				end,
-				desc = 'Flash Treesitter',
+				desc = "Flash Treesitter",
 			},
 		},
 	},
@@ -342,7 +315,7 @@ M = {
 		-- 自动设置当前工作目录
 		"airblade/vim-rooter",
 		init = function()
-			vim.g.rooter_patterns = { '__vim_project_root', '.git/' }
+			vim.g.rooter_patterns = { "__vim_project_root", ".git/" }
 			vim.g.rooter_silent_chdir = true
 		end
 	},
@@ -352,6 +325,7 @@ M = {
 		-- 不是跳转到源码，因为它并不是支持 lsp
 		-- 方便看工作目录内自己定义的类型
 		"pechorin/any-jump.vim",
+		event = "VeryLazy",
 		config = function()
 			-- vim.g.any_jump_enable_keybindings = 1
 			vim.g.any_jump_disable_default_keybindings = 1
@@ -362,7 +336,7 @@ M = {
 
 			-- 这个插件的默认快捷键配置无法设置为 disable,可能是 bug
 			-- 所有在这重新配置一下 <leader>j
-			vim.keymap.set('n', '<leader>j', '<c-w>j')
+			vim.keymap.set("n", "<leader>j", ":wincmd j<cr>")
 		end
 	},
 
@@ -410,7 +384,6 @@ M = {
 
 			local function toggleNvimTree()
 				local tree_open_state_index = getTreeOpenStateIndex()
-
 				local is_tree_buf = require("nvim-tree.utils").is_nvim_tree_buf()
 
 				if not is_tree_buf then
@@ -464,10 +437,8 @@ M = {
 				end
 
 				local function closeNvimtree()
-					local open_state_index = getTreeOpenStateIndex()
-
 					vim.api.nvim_command("quit")
-					vim.g[open_state_index] = nil
+					vim.g[getTreeOpenStateIndex()] = nil
 				end
 
 				local function escapeNvimTree()
@@ -669,7 +640,6 @@ M = {
 		-- 快速打开 lazygit
 		'kdheepak/lazygit.nvim',
 		event = "VeryLazy",
-
 		config = function()
 			vim.g.lazygit_floating_window_scaling_factor = 0.8
 			vim.g.lazygit_floating_window_winblend = 0

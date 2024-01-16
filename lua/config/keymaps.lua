@@ -30,7 +30,7 @@ local function quitNvim()
 
 	if current_buf_of_win_count == 1 then
 		-- depend on the nvim tree open state
-		if vim.g[vim.g.getNvimTreeOpenStateIndex] and getCurrentTabWinCount() == 2 then
+		if vim.g[vim.g.getNvimTreeOpenStateIndex()] and getCurrentTabWinCount() == 2 then
 			local current_buf = vim.api.nvim_get_current_buf()
 			vim.api.nvim_command("bprevious")
 			vim.api.nvim_buf_delete(current_buf, { force = true })
@@ -100,8 +100,7 @@ local nmappings = {
 	{ from = "c'",           to = "c%",                                                  mode = mode_nv },
 
 	{ from = "U",            to = "<c-r>",                                               mode = mode_nv },
-	{ from = "<leader><rc>", to = ":nohlsearch<CR>" },
-	-- { from = "<leader>sc",   to = ":set spell!<CR>" },
+	{ from = "<leader><rc>", to = ":nohlsearch<CR>",                                     mode = mode_nv },
 }
 
 for _, mapping in ipairs(nmappings) do

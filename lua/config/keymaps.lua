@@ -17,7 +17,7 @@ local function getCurrentTabWinCount()
 	return current_tab_win_count
 end
 
-vim.g.getCurrentTabWinCount = getCurrentTabWinCount()
+vim.g.getCurrentTabWinCount = getCurrentTabWinCount
 
 local function quitNvim()
 	local current_buf_of_win_count = #vim.fn.getbufinfo(vim.fn.bufnr("%"))[1].windows
@@ -28,11 +28,9 @@ local function quitNvim()
 		return
 	end
 
-	local current_tab_win_count = getCurrentTabWinCount()
-
 	if current_buf_of_win_count == 1 then
 		-- depend on the nvim tree open state
-		if vim.g[vim.g.getCurrentTabTreeOpenedState] and current_tab_win_count == 2 then
+		if vim.g[vim.g.getNvimTreeOpenStateIndex] and getCurrentTabWinCount() == 2 then
 			local current_buf = vim.api.nvim_get_current_buf()
 			vim.api.nvim_command("bprevious")
 			vim.api.nvim_buf_delete(current_buf, { force = true })
@@ -44,26 +42,7 @@ local function quitNvim()
 	end
 end
 
-local function printTable(table, indent)
-	indent = indent or 0
-	for key, value in pairs(table) do
-		if type(value) == "table" then
-			print(string.rep("  ", indent) .. key .. ":")
-			printTable(value, indent + 1)
-		else
-			print(string.rep("  ", indent) .. key .. ": " .. tostring(value))
-		end
-	end
-end
-
-local function log()
-	-- 获取所有缓冲区的信息
-	local buf_info = vim.fn.getbufinfo()
-	printTable(buf_info)
-end
-
 local nmappings = {
-	{ from = "<c-i>",        to = log,                                                   mode = mode_nv },
 	-- Movement
 	{ from = "J",            to = "5j",                                                  mode = mode_nv },
 	{ from = "K",            to = "5k",                                                  mode = mode_nv },

@@ -3,7 +3,7 @@ the nvim config for MacOS
 if you use MacOS and you need code with swift to develop the IOS App,
 you need mkdir ./tool/swift and install some tool to it:
 
-1.codelldb: install the codelldb-x86_64-darwin.vsix to debug the swift code.
+1.codelldb: install the codelldb-x86_64-darwin.vsix and unzip it to debug the swift code.
     link: https://github.com/vadimcn/codelldb/releases
 
 2.swiftlint: brew install swiftlint to forced syntax checking.

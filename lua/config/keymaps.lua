@@ -95,9 +95,17 @@ local nmappings = {
 	{ from = ",",            to = "0",                                                   mode = mode_nv },
 	{ from = ".",            to = "$",                                                   mode = mode_nv },
 
-	{ from = "v.",           to = "v$h",                                                 mode = mode_nv },
 	{ from = "v'",           to = "v%",                                                  mode = mode_nv },
+	{ from = "d'",           to = "d%",                                                  mode = mode_nv },
 	{ from = "c'",           to = "c%",                                                  mode = mode_nv },
+
+	{ from = "v,",           to = "v0",                                                  mode = mode_nv },
+	{ from = "d,",           to = "d0",                                                  mode = mode_nv },
+	{ from = "c,",           to = "c0",                                                  mode = mode_nv },
+
+	{ from = "v.",           to = "v$h",                                                 mode = mode_nv },
+	{ from = "d.",           to = "v$hd",                                                mode = mode_nv },
+	{ from = "c.",           to = "c$",                                                  mode = mode_nv },
 
 	{ from = "U",            to = "<c-r>",                                               mode = mode_nv },
 	{ from = "<leader><rc>", to = ":nohlsearch<CR>",                                     mode = mode_nv },

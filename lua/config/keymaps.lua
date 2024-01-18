@@ -1,6 +1,7 @@
 vim.g.mapleader = " "
 
 local mode_i = { "i" }
+local mode_n = { "n" }
 local mode_nv = { "n", "v" }
 
 local function getCurrentTabWinCount()
@@ -95,19 +96,19 @@ local nmappings = {
 	{ from = ",",            to = "0",                                                   mode = mode_nv },
 	{ from = ".",            to = "$",                                                   mode = mode_nv },
 
-	{ from = "v'",           to = "v%",                                                  mode = mode_nv },
-	{ from = "d'",           to = "d%",                                                  mode = mode_nv },
-	{ from = "c'",           to = "c%",                                                  mode = mode_nv },
+	{ from = "v'",           to = "v%",                                                  mode = mode_n },
+	{ from = "d'",           to = "d%",                                                  mode = mode_n },
+	{ from = "c'",           to = "c%",                                                  mode = mode_n },
 
-	{ from = "v,",           to = "v0",                                                  mode = mode_nv },
-	{ from = "d,",           to = "d0",                                                  mode = mode_nv },
-	{ from = "c,",           to = "c0",                                                  mode = mode_nv },
+	{ from = "v,",           to = "v0",                                                  mode = mode_n },
+	{ from = "d,",           to = "d0",                                                  mode = mode_n },
+	{ from = "c,",           to = "c0",                                                  mode = mode_n },
 
-	{ from = "v.",           to = "v$h",                                                 mode = mode_nv },
-	{ from = "d.",           to = "v$hd",                                                mode = mode_nv },
-	{ from = "c.",           to = "c$",                                                  mode = mode_nv },
+	{ from = "v.",           to = "v$h",                                                 mode = mode_n },
+	{ from = "d.",           to = "v$hd",                                                mode = mode_n },
+	{ from = "c.",           to = "c$",                                                  mode = mode_n },
 
-	{ from = "U",            to = "<c-r>",                                               mode = mode_nv },
+	{ from = "U",            to = "<c-r>",                                               mode = mode_n },
 	{ from = "<leader><rc>", to = ":nohlsearch<CR>",                                     mode = mode_nv },
 }
 

@@ -12,9 +12,9 @@ you need mkdir ./tool/swift and install some tool to it:
 3.xcode-build-server: install it and make a link to /usr/local/bin/, it will parse the XCode Project and make sourcekit easy to use. 
     link: https://github.com/SolaWing/xcode-build-server
 
-if you don't develop IOS App with swift,
-you can delete some content in ./default_config/__machine_specific_default.lua which with sourcekit and lldb,
-and you can delete the lsp config for swfit too.
+4.if you want the all function of xcodebuild.nvim plugin, you need update your ruby(add ruby bin path config in your zsh config file) and install xcodeproj.
+    gem install xcodeproj
+
 
 when you first open nvim after clone it, you may crush your nvim because your network,
 make sure you can connect github to install plugins for nvim.

@@ -510,8 +510,8 @@ M = {
 				-- TODO: navigate don't work
 				vim.keymap.set("n", "mj", tree_api.marks.navigate.next, opts("Next Bookmark"))
 				vim.keymap.set("n", "mk", tree_api.marks.navigate.prev, opts("Previous Bookmark"))
-				vim.keymap.set("n", "ms", tree_api.marks.navigate.select, opts("Select Bookmark"))
-				vim.keymap.set("n", "mx", tree_api.marks.clear, opts("Select Bookmark"))
+				vim.keymap.set("n", "ms", tree_api.marks.navigate.select, opts("Open Bookmark File"))
+				vim.keymap.set("n", "mx", tree_api.marks.clear, opts("Clear All  Bookmark"))
 				vim.keymap.set("n", "dmd", tree_api.marks.bulk.move, opts("Move Bookmarked"))
 				-- if don"t you have trash
 				-- vim.keymap.set("n", "dmD", tree_api.marks.bulk.delete, opts("Delete Bookmarked"))

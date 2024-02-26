@@ -149,7 +149,6 @@ M = {
 				lua_ls = require('config.lang.lua').lsp.setup(lspconfig),
 				pylsp = require('config.lang.python').lsp.setup(lspconfig),
 				bashls = require('config.lang.sh').lsp.setup(lspconfig),
-				sourcekit = require('config.lang.swift').lsp.setup(lspconfig),
 				-- efm （extension format module 可以配置文件类型对应的 formatter , linter
 				efm = require('config.lang.efm').lsp.setup(lspconfig),
 			}

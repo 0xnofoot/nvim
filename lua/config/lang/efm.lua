@@ -7,10 +7,6 @@ local ls = {
 		require('efmls-configs.formatters.beautysh'),
 	},
 
-	swift = {
-		require('config.lang.swift').format.setup(),
-		-- require('config.lang.swift').lint.setup(),
-	},
 }
 
 L = {

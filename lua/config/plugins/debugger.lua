@@ -67,8 +67,6 @@ M = {
 		-- for python
 		require('config.lang.python').dap.setup(dap)
 
-		-- for swift
-		require('config.lang.swift').dap.setup(dap)
 	end,
 }
 

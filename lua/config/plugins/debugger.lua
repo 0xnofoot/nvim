@@ -69,6 +69,8 @@ M = {
 
 		-- for swift
 		require('config.lang.swift').dap.setup(dap)
+
+		-- rust dap 交由 rustaceanvim 管理
 	end,
 }
 

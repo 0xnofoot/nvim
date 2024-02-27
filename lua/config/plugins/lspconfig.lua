@@ -117,7 +117,6 @@ M = {
 
 				vim.keymap.set('n', 'gh', vim.lsp.buf.hover, opts)
 				vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
-				vim.keymap.set('n', 'gD', ':tab sp<CR><cmd>lua vim.lsp.buf.definition()<cr>', opts)
 				vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
 				vim.keymap.set('n', 'go', vim.lsp.buf.type_definition, opts)
 				vim.keymap.set('n', 'gr', '<cmd>Telescope lsp_references<cr>', opts)
@@ -137,9 +136,11 @@ M = {
 				'lua_ls',
 				'pylsp',
 				'bashls',
+				-- rust-analyzer 的下载由rust 'rustup component add rust-analyzer' 指令完成
+				-- rust-analyzer 交由 'mrcjkb/rustaceanvim' 管理，不要在 mason 或 lsp-config 中配置 rust-analyzer
 				'efm',
 			},
-			auto_update = false,
+			auto_update = true,
 			handlers = {
 				lsp_zero.default_setup,
 
@@ -158,8 +159,10 @@ M = {
 		require('mason-tool-installer').setup({
 			ensure_installed = {
 				'beautysh',
+				'codelldb',
+				'cpptools',
 			},
-			auto_update = false,
+			auto_update = true,
 			run_on_start = true, -- Use MasonToolsUpdate to run this
 		})
 

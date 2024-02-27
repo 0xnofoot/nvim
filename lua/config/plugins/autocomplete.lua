@@ -114,7 +114,7 @@ local M = {
 				'quangnguyen30192/cmp-nvim-ultisnips',
 			},
 			config = function()
-				vim.g.UltiSnipsSnippetDirectories={"~/.config/nvim/Ultisnips"}
+				vim.g.UltiSnipsSnippetDirectories = { "~/.config/nvim/Ultisnips" }
 				-- vim.g.UltiSnipsExpandTrigger = '<Plug>(ultisnips_expand)'
 				-- vim.g.UltiSnipsJumpForwardTrigger = '<Plug>(ultisnips_jump_forward)'
 				-- vim.g.UltiSnipsJumpBackwardTrigger = '<Plug>(ultisnips_jump_backward)'
@@ -141,6 +141,10 @@ local M = {
 				{ name = 'path' },
 			}),
 
+			completion = {
+				completeopt = 'menu,menuone,noinsert'
+			},
+
 			window = {
 				completion = cmp.config.window.bordered(),
 				documentation = cmp.config.window.bordered(),
@@ -156,10 +160,7 @@ local M = {
 					maxwidth = 60,
 					maxheight = 10,
 					ellipsis_char = '..',
-
-					-- before = function(entry, vim_item)
-					-- 	return vim_item
-					-- end
+					menu = '',
 				})
 			},
 
@@ -181,7 +182,7 @@ local M = {
 
 				['<CR>'] = cmp.mapping({
 					i = function(fallback)
-						if cmp.visible() and cmp.get_active_entry() then
+						if cmp.visible() then
 							cmp.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = false })
 						else
 							fallback()

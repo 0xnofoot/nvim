@@ -12,7 +12,7 @@ M = {
 			modules = {
 			},
 
-			ensure_installed = { 'c', 'lua', 'vim', 'vimdoc', 'query', 'python', 'bash', 'swift', 'objc' },
+			ensure_installed = { 'c', 'lua', 'vim', 'vimdoc', 'query', 'python', 'bash', 'swift', 'objc', 'rust' },
 
 			indent = {
 				enable = false

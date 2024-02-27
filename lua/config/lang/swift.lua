@@ -13,8 +13,8 @@ L = {
 				},
 
 				cmd = {
-					-- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/sourcekit-lsp",
-					vim.g.sourcekit_path,
+					-- sourcekit path
+					"/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/sourcekit-lsp",
 				},
 
 				root_dir = function(filename, _)
@@ -32,8 +32,8 @@ L = {
 
 			-- 将 swiftinterface 文件当成 swift 文件 解析
 			-- 这样子可以正确解析，但会出现一些麻烦，比如 诊断时会将 swiftinterface 文件也加入诊断
-			-- LsoLog 中 sourcekit 的一个报错好像也与这个有关（存疑）
-			-- todo 只是想 swiftinterface 文件有个高亮好辨识一点
+			-- LspLog 中 sourcekit 的一个报错好像也与这个有关（存疑）
+			-- Todo: 只是想 swiftinterface 文件有个高亮好辨识一点
 			-- vim.cmd([[
 			-- 	augroup SwiftInterface
 			-- 	  autocmd!
@@ -80,7 +80,7 @@ L = {
 
 	dap = {
 		setup = function(dap)
-			local xcodebuild = require("xcodebuild.dap")
+			local xcodebuild = require("xcodebuild.integrations.dap")
 
 			vim.keymap.set("n", "<leader>xdd", xcodebuild.build_and_debug, { desc = "Build & Debug" })
 			vim.keymap.set("n", "<leader>xdw", xcodebuild.debug_without_build, { desc = "Debug Without Building" })
@@ -106,16 +106,19 @@ L = {
 				},
 			}
 
+			local codelldb_path = vim.g.mason_package_path .. '/codelldb/extension/adapter/codelldb'
+			local xcode_liblldb_path = '/Applications/Xcode.app/Contents/SharedFrameworks/LLDB.framework/Versions/A/LLDB'
+
 			dap.adapters.codelldb = {
 				type = "server",
 				port = "23000",
 				executable = {
-					command = vim.g.codelldb_path,
+					command = codelldb_path,
 					args = {
 						'--port',
 						'23000',
 						'--liblldb',
-						vim.g.liblldb_path,
+						xcode_liblldb_path,
 						-- 调试时 codelldb 会报错 但并不影响使用
 						-- todo
 						-- 'SWIFT_LOG',
@@ -123,6 +126,7 @@ L = {
 					},
 				},
 			}
+
 		end,
 	},
 

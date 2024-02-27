@@ -28,7 +28,7 @@ L = {
 	dap = {
 		setup = function()
 			local codelldb_path = vim.g.mason_package_path .. '/codelldb/extension/adapter/codelldb'
-			local liblldb_path = vim.g.mason_package_path .. '/codelldb/extension/lldb/lib/liblldb.dylib'
+			local liblldb_path = vim.g.mason_package_path .. '/codelldb/extension/lldb/lib/liblldb.so'
 			local cfg = require('rustaceanvim.config')
 
 			return {

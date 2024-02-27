@@ -136,10 +136,12 @@ M = {
 			ensure_installed = {
 				'lua_ls',
 				'pylsp',
-				-- 'bashls',
+				'bashls',
+				-- rust-analyzer 的下载由rust 'rustup component add rust-analyzer' 指令完成
+				-- rust-analyzer 交由 'mrcjkb/rustaceanvim' 管理，不要在 mason 或 lsp-config 中配置 rust-analyzer
 				'efm',
 			},
-			auto_update = false,
+			auto_update = true,
 			handlers = {
 				lsp_zero.default_setup,
 
@@ -157,8 +159,10 @@ M = {
 		require('mason-tool-installer').setup({
 			ensure_installed = {
 				'beautysh',
+				'codelldb',
+				'cpptools',
 			},
-			auto_update = false,
+			auto_update = true,
 			run_on_start = true, -- Use MasonToolsUpdate to run this
 		})
 

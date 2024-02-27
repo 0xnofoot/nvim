@@ -38,7 +38,7 @@ require("lazy").setup({
 	require("config.plugins.treesitter"),
 
 	-- 运行和调试
-	require("config.plugins.compile_run"),
+	require("config.plugins.lang"),
 	require("config.plugins.debugger"),
 })
 

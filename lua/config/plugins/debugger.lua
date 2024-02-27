@@ -67,6 +67,8 @@ M = {
 		-- for python
 		require('config.lang.python').dap.setup(dap)
 
+		-- rust dap 交由 rustaceanvim 管理
+
 	end,
 }
 

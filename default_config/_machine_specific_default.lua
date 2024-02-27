@@ -2,4 +2,4 @@
 
 vim.g.python3_host_prog = '/usr/bin/python3'
 
-vim.g.efm_config_path = os.getenv("HOME") .. '/.config/nvim/tool/efm/config.ymal'
+vim.g.mason_package_path = os.getenv('HOME') .. '/.local/share/nvim/mason/packages'

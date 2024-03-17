@@ -78,6 +78,9 @@ L = {
 		end,
 	},
 
+	-- xcode project 的调试被 xcodebuild 插件集成了
+	-- 不再需要在 nvim-dap 中配置
+	-- 下面的内容不再被引用
 	dap = {
 		setup = function(dap)
 			local xcodebuild = require("xcodebuild.integrations.dap")
@@ -126,7 +129,6 @@ L = {
 					},
 				},
 			}
-
 		end,
 	},
 
@@ -223,7 +225,25 @@ L = {
 				android_emulator = false,
 			})
 			vim.keymap.set("n", "<leader>xs", "<cmd>Telescope simulators run<cr><esc>", { desc = "Open The Simulators" })
+
+			-- for dap
+			local xcodebuild = require("xcodebuild.integrations.dap")
+			local codelldbPath = vim.g.mason_package_path .. '/codelldb/extension/adapter/codelldb'
+			xcodebuild.setup(codelldbPath)
+
+			vim.keymap.set("n", "<leader>xdd", xcodebuild.build_and_debug, { desc = "Build & Debug" })
+			vim.keymap.set("n", "<leader>xdw", xcodebuild.debug_without_build, { desc = "Debug Without Building" })
+			vim.keymap.set("n", "<Leader>xdx", function()
+				require('dap').terminate()
+				require("xcodebuild.actions").cancel()
+
+				local success, dapui = pcall(require, "dapui")
+				if success then
+					dapui.close()
+				end
+			end)
 		end,
+
 
 		run_action = function()
 			vim.cmd('set splitbelow')

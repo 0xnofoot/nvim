@@ -67,8 +67,10 @@ M = {
 		-- for python
 		require('config.lang.python').dap.setup(dap)
 
-		-- for swift
-		require('config.lang.swift').dap.setup(dap)
+		-- xcode project 的调试被 xcodebuild 插件集成了
+		-- 不再需要在 nvim-dap 中配置
+		-- 下面的内容不再被引用
+		-- require('config.lang.swift').dap.setup(dap)
 
 		-- rust dap 交由 rustaceanvim 管理
 	end,

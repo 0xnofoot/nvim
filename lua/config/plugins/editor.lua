@@ -127,7 +127,8 @@ M = {
 
 			-- 不知道怎么绑定 ctrl+/, 好像 vim 中 使用 <c-_> 代替 <c-/>
 			-- 但是这可能在 tmux 中不起作用, 使用 <c-c> 代替
-			vim.keymap.set({ "n", "i", "v" }, "<c-c>", ":TComment<CR>", { silent = true })
+			vim.keymap.set({ "n", "v" }, "<c-c>", ":TComment<CR>0w", { silent = true })
+			vim.keymap.set({ "i" }, "<c-c>", "<ESC>:TComment<CR>0w", { silent = true })
 		end
 	},
 

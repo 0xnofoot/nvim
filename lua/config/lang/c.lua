@@ -12,6 +12,8 @@ L = {
 					completion = true
 				},
 
+				filetypes = { "c" },
+
 				settings = {
 					completions = {
 						completeFunctionCalls = true,
@@ -32,11 +34,6 @@ L = {
 		end,
 	},
 
-	dap = {
-		setup = function(dap)
-		end,
-	},
-
 	compile_run = {
 		setup = function()
 		end,
@@ -47,7 +44,12 @@ L = {
 			vim.cmd('res -5')
 			vim.cmd("term gcc % -o %< && ./%< && rm %<")
 		end,
-	}
+	},
+
+	dap = {
+		setup = function(dap)
+		end,
+	},
 }
 
 return L

@@ -137,10 +137,9 @@ M = {
 				'pylsp',
 				'bashls',
 				'clangd',
-				-- 'cpptools',
+				'efm',
 				-- rust-analyzer 的下载由rust 'rustup component add rust-analyzer' 指令完成
 				-- rust-analyzer 交由 'mrcjkb/rustaceanvim' 管理，不要在 mason 或 lsp-config 中配置 rust-analyzer
-				'efm',
 			},
 			auto_update = true,
 			handlers = {
@@ -154,11 +153,13 @@ M = {
 				pylsp = require('config.lang.python').lsp.setup(lspconfig),
 				bashls = require('config.lang.sh').lsp.setup(lspconfig),
 
+				-- sourcekit：苹果的lsp
+				swift_ls = require('config.lang.swift').lsp.setup(lspconfig),
+				objc_ls = require('config.lang.objc').lsp.setup(lspconfig),
+
 				-- efm （extension format module 可以配置文件类型对应的 formatter , linter
 				efm = require('config.lang.efm').lsp.setup(lspconfig),
 
-				-- 苹果的lsp，目前专门用于swift
-				sourcekit = require('config.lang.swift').lsp.setup(lspconfig),
 			}
 		})
 

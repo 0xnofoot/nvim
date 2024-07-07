@@ -12,6 +12,8 @@ L = {
 					completion = true
 				},
 
+				filetypes = { "sh", "zsh"},
+
 				settings = {
 					completions = {
 						completeFunctionCalls = true,

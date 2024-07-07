@@ -18,6 +18,8 @@ L = {
 					completion = true
 				},
 
+				filetypes = { "lua" },
+
 				settings = {
 					completions = {
 						completeFunctionCalls = true,
@@ -38,11 +40,6 @@ L = {
 		end
 	},
 
-	dap = {
-		setup = function()
-		end
-	},
-
 	compile_run = {
 		setup = function()
 		end,
@@ -54,7 +51,12 @@ L = {
 			vim.cmd('term luajit %')
 		end,
 
-	}
+	},
+
+	dap = {
+		setup = function()
+		end
+	},
 }
 
 return L

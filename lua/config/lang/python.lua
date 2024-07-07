@@ -12,6 +12,8 @@ L = {
 					completion = true
 				},
 
+				filetypes = { "py", "python" },
+
 				settings = {
 					completions = {
 						completeFunctionCalls = true,
@@ -29,6 +31,18 @@ L = {
 
 	lint = {
 		setup = function()
+		end,
+	},
+
+	compile_run = {
+		setup = function()
+		end,
+
+		run_action = function()
+			vim.cmd('set splitbelow')
+			vim.cmd('sp')
+			vim.cmd('res -5')
+			vim.cmd('term python3 %')
 		end,
 	},
 
@@ -53,19 +67,6 @@ L = {
 			}
 		end,
 	},
-
-	compile_run = {
-		setup = function()
-		end,
-
-		run_action = function()
-			vim.cmd('set splitbelow')
-			vim.cmd('sp')
-			vim.cmd('res -5')
-			vim.cmd('term python3 %')
-		end,
-	}
-
 }
 
 return L

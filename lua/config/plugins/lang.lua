@@ -23,15 +23,6 @@ vim.keymap.set('n', '<c-r>', compileRun, { silent = true })
 
 M = {
 	{
-		-- swift
-		-- xcode 项目的 构建，运行，测试功能插件
-		"wojciech-kulik/xcodebuild.nvim",
-		dependencies = { 'MunifTanjim/nui.nvim' },
-		-- 配置在 lang/swift.lua 中
-		config = require('config.lang.swift').compile_run.setup
-	},
-
-	{
 		-- rust
 		-- rust 的配置管理插件
 		-- 所有的 rust 配置统一由该插件管理

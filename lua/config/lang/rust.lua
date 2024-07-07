@@ -24,6 +24,14 @@ L = {
 		setup = function()
 		end,
 	},
+	compile_run = {
+		setup = function()
+		end,
+
+		run_action = function()
+			vim.cmd.RustLsp('runnables')
+		end,
+	},
 
 	dap = {
 		setup = function()
@@ -36,16 +44,6 @@ L = {
 			}
 		end,
 	},
-
-	compile_run = {
-		setup = function()
-		end,
-
-		run_action = function()
-			vim.cmd.RustLsp('runnables')
-		end,
-	}
-
 }
 
 return L

@@ -43,23 +43,9 @@ L = {
 		},
 	},
 
-	format = {
-		setup = function()
-		end,
-	},
-
-	lint = {
-		setup = function()
-		end,
-	},
-	compile_run = {
-		setup = function()
-		end,
-
-		run_action = function()
-			vim.cmd.RustLsp('runnables')
-		end,
-	},
+	run_action = function()
+		vim.cmd.RustLsp('runnables')
+	end,
 
 	dap = {
 		setup = function()

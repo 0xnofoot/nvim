@@ -138,8 +138,6 @@ M = {
 				'bashls',
 				'clangd',
 				'efm',
-				-- rust-analyzer 的下载由rust 'rustup component add rust-analyzer' 指令完成
-				-- rust-analyzer 交由 'mrcjkb/rustaceanvim' 管理，不要在 mason 或 lsp-config 中配置 rust-analyzer
 			},
 			auto_update = true,
 			handlers = {
@@ -148,17 +146,19 @@ M = {
 				-- lsp 个性化配置, 对每个语言都单独使用一份 .lua 文件
 				-- 保存在 config/lang/*.lua 中, 变量名称必须与 lsp 的名称相同
 				-- 在 .lua 文件中 调用 .lsp.setup(lspconfig) 来进行配置
-				clangd = require('config.lang.c').lsp.setup(lspconfig),
-				lua_ls = require('config.lang.lua').lsp.setup(lspconfig),
-				pylsp = require('config.lang.python').lsp.setup(lspconfig),
-				bashls = require('config.lang.sh').lsp.setup(lspconfig),
+				clangd = require('config.lsp.clangd').setup(lspconfig),
+				bashls = require('config.lsp.bashls').setup(lspconfig),
+				lua_ls = require('config.lsp.lua_ls').setup(lspconfig),
+				pylsp = require('config.lsp.pylsp').setup(lspconfig),
 
-				-- sourcekit：苹果的lsp, oc由swift管理（暂时）
-				swift_ls = require('config.lang.swift').lsp.setup(lspconfig),
-				-- objc_ls = require('config.lang.objc').lsp.setup(lspconfig),
+				-- sourcekit：苹果的lsp
+				sourcekit = require('config.lsp.sourcekit').setup(lspconfig),
 
-				-- efm （extension format module 可以配置文件类型对应的 formatter , linter
-				efm = require('config.lang.efm').lsp.setup(lspconfig),
+				-- rust-analyzer 的下载由rust 'rustup component add rust-analyzer' 指令完成
+				-- rust-analyzer 交由 'mrcjkb/rustaceanvim' 管理，不要在 mason 或 lsp-config 中配置 rust-analyzer
+
+				-- efm （extension format module 可以配置文件类型对应的 formatter , linter)
+				efm = require('config.lsp.efm').setup(lspconfig),
 
 			}
 		})
@@ -195,13 +195,6 @@ M = {
 			warn = ' ',
 			info = ' ',
 			hint = '󰌵',
-		})
-
-		lsp_zero.format_on_save({
-			format_opts = {
-				async = false,
-				timeout_ms = 10000,
-			},
 		})
 	end
 }

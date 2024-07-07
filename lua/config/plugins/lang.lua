@@ -8,8 +8,12 @@ local compileRun = function()
 		require('config.lang.lua').compile_run.run_action()
 	elseif ft == 'python' then
 		require('config.lang.python').compile_run.run_action()
+	elseif ft == 'c' then
+		require('config.lang.c').compile_run.run_action()
 	elseif ft == 'swift' then
 		require('config.lang.swift').compile_run.run_action()
+	elseif ft == 'objc' then
+		require('config.lang.objc').compile_run.run_action()
 	elseif ft == 'rust' then
 		require('config.lang.rust').compile_run.run_action()
 	end

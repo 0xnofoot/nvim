@@ -136,6 +136,7 @@ M = {
 				'lua_ls',
 				'pylsp',
 				'bashls',
+				'clangd',
 				-- 'cpptools',
 				-- rust-analyzer 的下载由rust 'rustup component add rust-analyzer' 指令完成
 				-- rust-analyzer 交由 'mrcjkb/rustaceanvim' 管理，不要在 mason 或 lsp-config 中配置 rust-analyzer
@@ -160,6 +161,7 @@ M = {
 		require('mason-tool-installer').setup({
 			ensure_installed = {
 				'beautysh',
+				'clang-format',
 				'codelldb',
 			},
 			auto_update = true,

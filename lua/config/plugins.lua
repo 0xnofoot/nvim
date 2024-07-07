@@ -21,7 +21,7 @@ require("lazy").setup({
 	-- 一系列编辑优化插件
 	require("config.plugins.editor"),
 
-	--查找
+	-- 查找
 	-- 根据文件内容查找文件, fzf 相比于 telescope 更准确
 	require("config.plugins.fzf"),
 	-- telescope
@@ -41,4 +41,3 @@ require("lazy").setup({
 	require("config.plugins.lang"),
 	require("config.plugins.debugger"),
 })
-

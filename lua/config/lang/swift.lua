@@ -17,6 +17,8 @@ L = {
 					"/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/sourcekit-lsp",
 				},
 
+				filetypes = { "swift", "objective-c", "objective-cpp", "objc" },
+
 				root_dir = function(filename, _)
 					local util = require("lspconfig.util")
 					return util.root_pattern("buildServer.json")(filename)

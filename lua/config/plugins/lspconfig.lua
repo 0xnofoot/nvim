@@ -153,9 +153,9 @@ M = {
 				pylsp = require('config.lang.python').lsp.setup(lspconfig),
 				bashls = require('config.lang.sh').lsp.setup(lspconfig),
 
-				-- sourcekit：苹果的lsp
+				-- sourcekit：苹果的lsp, oc由swift管理（暂时）
 				swift_ls = require('config.lang.swift').lsp.setup(lspconfig),
-				objc_ls = require('config.lang.objc').lsp.setup(lspconfig),
+				-- objc_ls = require('config.lang.objc').lsp.setup(lspconfig),
 
 				-- efm （extension format module 可以配置文件类型对应的 formatter , linter
 				efm = require('config.lang.efm').lsp.setup(lspconfig),

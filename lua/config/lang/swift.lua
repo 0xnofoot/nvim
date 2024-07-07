@@ -20,7 +20,7 @@ L = {
 					"/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/sourcekit-lsp",
 				},
 
-				filetypes = { "swift" },
+				filetypes = { "swift", "objective-c", "objc" },
 
 				root_dir = function(filename, _)
 					local util = require("lspconfig.util")

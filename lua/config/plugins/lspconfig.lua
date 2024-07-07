@@ -149,19 +149,22 @@ M = {
 				-- lsp 个性化配置, 对每个语言都单独使用一份 .lua 文件
 				-- 保存在 config/lang/*.lua 中, 变量名称必须与 lsp 的名称相同
 				-- 在 .lua 文件中 调用 .lsp.setup(lspconfig) 来进行配置
+				clangd = require('config.lang.c').lsp.setup(lspconfig),
 				lua_ls = require('config.lang.lua').lsp.setup(lspconfig),
 				pylsp = require('config.lang.python').lsp.setup(lspconfig),
 				bashls = require('config.lang.sh').lsp.setup(lspconfig),
-				sourcekit = require('config.lang.swift').lsp.setup(lspconfig),
+
 				-- efm （extension format module 可以配置文件类型对应的 formatter , linter
 				efm = require('config.lang.efm').lsp.setup(lspconfig),
+
+				-- 苹果的lsp，目前专门用于swift
+				sourcekit = require('config.lang.swift').lsp.setup(lspconfig),
 			}
 		})
 
 		require('mason-tool-installer').setup({
 			ensure_installed = {
 				'beautysh',
-				'clang-format',
 				'codelldb',
 			},
 			auto_update = true,

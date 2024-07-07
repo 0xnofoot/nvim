@@ -1,4 +1,8 @@
 L = {
+	plugins = {
+
+	},
+
 	lsp = {
 		setup = function(lspconfig)
 			require('neodev').setup({

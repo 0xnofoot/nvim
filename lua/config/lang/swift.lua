@@ -1,5 +1,8 @@
 L = {
-	-- for lspconfig
+	plugins = {
+
+	},
+
 	lsp = {
 		setup = function(lspconfig)
 			lspconfig.sourcekit.setup({

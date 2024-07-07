@@ -22,31 +22,7 @@ end
 vim.keymap.set('n', '<c-r>', compileRun, { silent = true })
 
 M = {
-	{
-		-- rust
-		-- rust 的配置管理插件
-		-- 所有的 rust 配置统一由该插件管理
-		'mrcjkb/rustaceanvim',
-		version = '^4',
-		ft = { 'rust' },
-		config = function()
-			vim.g.rustaceanvim = {
-				tools = {
-				},
-				server = {
-					on_attach = function(client, bufnr)
-						require('config.lang.rust').lsp.setup(client, bufnr)
-					end,
-					default_settings = {
-						['rust-analyzer'] = {
-							require('config.lang.rust').rust_analyzer_config,
-						},
-					},
-				},
-				dap = require('config.lang.rust').dap.setup(),
-			}
-		end
-	},
+	require('config.lang.rust').plugins,
 }
 
 return M

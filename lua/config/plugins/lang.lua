@@ -16,6 +16,8 @@ local compileRun = function()
 		require('config.lang.objc').run_action()
 	elseif ft == 'rust' then
 		require('config.lang.rust').run_action()
+	elseif ft == 'markdown' then
+		require('config.lang.markdown').run_action()
 	end
 end
 
@@ -23,6 +25,8 @@ vim.keymap.set('n', '<c-r>', compileRun, { silent = true })
 
 M = {
 	require('config.lang.rust').plugins,
+
+	require('config.lang.markdown').plugins,
 }
 
 return M

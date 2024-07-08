@@ -462,7 +462,7 @@ M = {
 
 				vim.keymap.set("n", "?", tree_api.tree.toggle_help, opts("Help"))
 				vim.keymap.set("n", "Q", closeNvimtree, opts("Quit"))
-				vim.keymap.set("n", "<ESC>", escapeNvimTree, opts("Help"))
+				vim.keymap.set("n", "<ESC>", escapeNvimTree, opts("Esc"))
 				vim.keymap.set("n", "<c-h>", function() reMapBufMove("previous") end, opts("Previous Buf"))
 				vim.keymap.set("n", "<c-l>", function() reMapBufMove("next") end, opts("Next Buf"))
 

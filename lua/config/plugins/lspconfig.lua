@@ -10,7 +10,7 @@ local F = {
 		},
 		always_trigger = true,
 		hi_parameter = 'IncSearch',
-		toggle_key = '<c-a>',
+		toggle_key = '<c-w>',
 		toggle_key_flip_floatwin_setting = true,
 	},
 }

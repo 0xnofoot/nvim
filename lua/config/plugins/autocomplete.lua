@@ -1,7 +1,7 @@
--- local has_words_before = function()
--- 	local line, col = unpack(vim.api.nvim_win_get_cursor(0))
--- 	return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match('%s') == nil
--- end
+local has_words_before = function()
+	local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+	return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match('%s') == nil
+end
 
 local moveCursorBeforeComma = function()
 	vim.defer_fn(function()
@@ -173,7 +173,7 @@ local M = {
 				['<C-j>'] = cmp.mapping.scroll_docs(4),
 				['<C-k>'] = cmp.mapping.scroll_docs(-4),
 
-				['<c-c>'] = cmp.mapping({
+				['<C-c>'] = cmp.mapping({
 					i = function(fallback)
 						cmp.close()
 						fallback()
@@ -188,6 +188,16 @@ local M = {
 							fallback()
 						end
 					end
+				}),
+
+				['<C-a>'] = cmp.mapping({
+					i = function(fallback)
+						if not cmp.visible() and has_words_before() then
+							cmp.complete()
+						elseif cmp.visible() then
+							cmp.close()
+						end
+					end,
 				}),
 
 				['<Tab>'] = cmp.mapping({

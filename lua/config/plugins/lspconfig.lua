@@ -10,7 +10,6 @@ local F = {
 		},
 		always_trigger = true,
 		hi_parameter = 'IncSearch',
-		toggle_key = '<c-w>',
 		toggle_key_flip_floatwin_setting = true,
 	},
 }
@@ -47,9 +46,7 @@ M = {
 			'ray-x/lsp_signature.nvim',
 			event = 'VeryLazy',
 			config = function()
-				require('lsp_signature').setup(F.signature_opt)
-
-				vim.keymap.set({ 'n' }, '<C-a>', function()
+				vim.keymap.set({ 'n' }, '<C-w>', function()
 					require('lsp_signature').toggle_float_win()
 				end, { silent = true, noremap = true, desc = 'toggle signature' })
 			end

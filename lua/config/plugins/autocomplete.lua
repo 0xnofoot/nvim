@@ -205,9 +205,6 @@ local M = {
 						if cmp.visible() then
 							cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
 							moveCursorBeforeComma()
-							-- elseif has_words_before() then
-							-- 	cmp.complete()
-							-- 	moveCursorBeforeComma()
 						elseif vim.fn["UltiSnips#CanJumpForwards"]() == 1 then
 							cmp_ultisnips_mappings.jump_forwards(fallback)
 						else

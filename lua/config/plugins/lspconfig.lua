@@ -46,7 +46,7 @@ M = {
 			'ray-x/lsp_signature.nvim',
 			event = 'VeryLazy',
 			config = function()
-				vim.keymap.set({ 'n' }, '<C-w>', function()
+				vim.keymap.set({ 'n', 'i' }, '<C-w>', function()
 					require('lsp_signature').toggle_float_win()
 				end, { silent = true, noremap = true, desc = 'toggle signature' })
 			end

@@ -41,6 +41,6 @@ require("lazy").setup({
 	require("config.plugins.lang"),
 	require("config.plugins.debugger"),
 
-	-- Xcode开发相关配置
-	require("config.plugins.xcode"),
+	-- 其他特定框架和环境所需要的插件
+	require("config.plugins.framework"),
 })

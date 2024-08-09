@@ -116,13 +116,12 @@ M = {
 				vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
 				vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
 				vim.keymap.set('n', 'go', vim.lsp.buf.type_definition, opts)
+				vim.keymap.set('n', 'ga', vim.lsp.buf.code_action, opts)
 				vim.keymap.set('n', 'gr', '<cmd>Telescope lsp_references<cr>', opts)
+				vim.keymap.set('n', 'gt', vim.diagnostic.open_float, opts)
 				vim.keymap.set('n', '<leader>gr', vim.lsp.buf.rename, opts)
-				vim.keymap.set('n', '<leader>ga', vim.lsp.buf.code_action, opts)
 				vim.keymap.set('n', '<leader>gt', ':Trouble<cr>', opts)
 				vim.keymap.set({ 'n', 'x' }, '<leader>gf', function() vim.lsp.buf.format({ async = true }) end, opts)
-				vim.keymap.set('n', '<leader>-', vim.diagnostic.goto_prev, opts)
-				vim.keymap.set('n', '<leader>=', vim.diagnostic.goto_next, opts)
 			end
 		})
 
@@ -150,6 +149,9 @@ M = {
 
 				-- sourcekit：苹果的lsp
 				sourcekit = require('config.lsp.sourcekit').setup(lspconfig),
+
+				-- dartls: dart的lsp，由dart自身提供
+				dartls = require('config.lsp.dartls').setup(lspconfig),
 
 				-- rust-analyzer 的下载由rust 'rustup component add rust-analyzer' 指令完成
 				-- rust-analyzer 交由 'mrcjkb/rustaceanvim' 管理，不要在 mason 或 lsp-config 中配置 rust-analyzer

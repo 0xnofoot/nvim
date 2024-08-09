@@ -194,7 +194,6 @@ M = {
 			vim.keymap.set("n", "<leader>;", ":NeoZoomToggle<CR>", { silent = true, nowait = true })
 			require("neo-zoom").setup {
 				popup = { enabled = true }, -- this is the default.
-				-- TODO: Dangerous for Telescope
 				exclude_buftypes = { "terminal" },
 				exclude_filetypes = { "lspinfo", "mason", "lazy", "fzf", },
 				winopts = {
@@ -508,7 +507,6 @@ M = {
 				vim.keymap.set("n", "cN", tree_api.fs.rename_full, opts("Rename Full"))
 
 				vim.keymap.set("n", "mm", tree_api.marks.toggle, opts("Toggle Bookmark"))
-				-- TODO: navigate don't work
 				vim.keymap.set("n", "mj", tree_api.marks.navigate.next, opts("Next Bookmark"))
 				vim.keymap.set("n", "mk", tree_api.marks.navigate.prev, opts("Previous Bookmark"))
 				vim.keymap.set("n", "ms", tree_api.marks.navigate.select, opts("Open Bookmark File"))

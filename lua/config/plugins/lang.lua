@@ -18,6 +18,8 @@ local compileRun = function()
 		require('config.lang.rust').run_action()
 	elseif ft == 'markdown' then
 		require('config.lang.markdown').run_action()
+	elseif ft == 'dart' then
+		require('config.lang.dart').run_action()
 	end
 end
 
@@ -27,6 +29,8 @@ M = {
 	require('config.lang.rust').plugins,
 
 	require('config.lang.markdown').plugins,
+
+	require('config.lang.dart').plugins,
 }
 
 return M

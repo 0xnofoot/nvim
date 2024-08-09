@@ -1,5 +1,5 @@
 M = {
-	{
+	plugins = {
 		-- xcode 项目的 构建，运行，测试功能插件
 		"wojciech-kulik/xcodebuild.nvim",
 		dependencies = { 'MunifTanjim/nui.nvim' },

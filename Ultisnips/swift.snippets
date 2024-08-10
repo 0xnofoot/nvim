@@ -4,11 +4,11 @@ from vimsnippets import get_comment_format
 endglobal
 
 snippet todo "TODO comment" bw
-// TODO: ${1:#<something>} <${2:`!v strftime('%d-%m-%y')`}, ${3:toofonwang}>
+// TODO: ${1:#<something>} <${2:`!v strftime('%d-%m-%y')`}, ${3:`!v g:snips_author`}>
 endsnippet
 
 snippet mk "MARK comment" bw
-// MARK: ${1:#<something>} <${2:`!v strftime('%d-%m-%y')`}, ${3:toofonwang}>
+// MARK: ${1:#<something>} <${2:`!v strftime('%d-%m-%y')`}, ${3:`!v g:snips_author`}>
 endsnippet
 
 snippet des "description"

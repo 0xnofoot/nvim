@@ -231,9 +231,6 @@ M = {
 			-- 	-- 查找高亮
 			-- 	'kevinhwang91/nvim-hlslens',
 			-- 	config = function()
-			-- 		-- require('hlslens').setup()
-			-- 		local kopts = { noremap = true, silent = true }
-			-- 		vim.api.nvim_set_keymap('n', '<Leader><CR>', '<Cmd>noh<CR>', kopts)
 			-- 	end
 			-- },
 		},

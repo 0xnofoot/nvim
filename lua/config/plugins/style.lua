@@ -2,6 +2,8 @@ M = {
 	{
 		-- 基本主题设置
 		"theniceboy/nvim-deus",
+		lazy = false,
+		priority = 1000,
 		config = function()
 			vim.cmd([[colorscheme deus]])
 		end,
@@ -43,13 +45,13 @@ M = {
 				show_modified = true,
 
 				theme = {
-					normal = { fg = "#D2691E", bg = "#3C424B", bold = false },
+					normal = { fg = "#F5691E", bg = "#3C424B", bold = false },
 
 					ellipsis = { fg = "#CFCFCF" },
 					separator = { fg = "#87CEFF", bold = true },
 					modified = { fg = "#FFD700" },
 
-					dirname = { fg = "#8B8B00", bold = true },
+					dirname = { fg = "#FFAB00", bold = true },
 					basename = { bold = false },
 					context = {},
 

@@ -1,11 +1,21 @@
+global !p
+from vimsnippets import get_comment_format
+# g:snips_author = "toofonwang"
+endglobal
+
+snippet todo "TODO comment" bw
+// TODO: ${1:#<something>} <${2:`!v strftime('%d-%m-%y')`}, ${3:toofonwang}>
+endsnippet
+
+snippet mk "MARK comment" bw
+// MARK: ${1:#<something>} <${2:`!v strftime('%d-%m-%y')`}, ${3:toofonwang}>
+endsnippet
+
 snippet des "description"
 /// ${1}
 /// - Parameter ${2}: ${3}
 endsnippet
 
-snippet mk "MARK"
-// MARK - ${1:#<mark content>}
-endsnippet
 
 snippet cs "class"
 class ${1:#<name>} {

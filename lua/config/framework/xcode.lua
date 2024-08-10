@@ -76,43 +76,65 @@ M = {
 				},
 			})
 
-			vim.keymap.set("n", "<leader>xb", "<cmd>XcodebuildBuild<cr>", { desc = "Build Project" })
-			vim.keymap.set("n", "<leader>xr", "<cmd>XcodebuildBuildRun<cr>", { desc = "Build & Run Project" })
-			vim.keymap.set("n", "<leader>xx", "<cmd>XcodebuildPicker<cr>", { desc = "Show All Xcodebuild Actions" })
-			vim.keymap.set("n", "<leader>xl", "<cmd>XcodebuildToggleLogs<cr>", { desc = "Toggle Xcodebuild Logs" })
-			-- vim.keymap.set("n", "<leader>xt", "<cmd>XcodebuildTest<cr>", { desc = "Run Tests" })
-			-- vim.keymap.set("n", "<leader>xT", "<cmd>XcodebuildTestClass<cr>", { desc = "Run This Test Class" })
-			-- vim.keymap.set("n", "<leader>xd", "<cmd>XcodebuildSelectDevice<cr>", { desc = "Select Device" })
-			-- vim.keymap.set("n", "<leader>xp", "<cmd>XcodebuildSelectTestPlan<cr>", { desc = "Select Test Plan" })
-			-- vim.keymap.set("n", "<leader>xc", "<cmd>XcodebuildToggleCodeCoverage<cr>",
-			-- 	{ desc = "Toggle Code Coverage" })
-			-- vim.keymap.set("n", "<leader>xC", "<cmd>XcodebuildShowCodeCoverageReport<cr>",
-			-- 	{ desc = "Show Code Coverage Report" })
-			-- ts.load_extension('simulators')
+			vim.api.nvim_create_autocmd("FileType", {
+				pattern = { "swift", "objc", "objective-c" },
+
+				callback = function()
+					vim.keymap.set("n", "<leader>xb", "<cmd>XcodebuildBuild<cr>", { desc = "Build Project" })
+					vim.keymap.set("n", "<leader>xr", "<cmd>XcodebuildBuildRun<cr>", { desc = "Build & Run Project" })
+					vim.keymap.set("n", "<leader>xx", "<cmd>XcodebuildPicker<cr>",
+						{ desc = "Show All Xcodebuild Actions" })
+					vim.keymap.set("n", "<leader>xl", "<cmd>XcodebuildToggleLogs<cr>",
+						{ desc = "Toggle Xcodebuild Logs" })
+					-- vim.keymap.set("n", "<leader>xt", "<cmd>XcodebuildTest<cr>", { desc = "Run Tests" })
+					-- vim.keymap.set("n", "<leader>xT", "<cmd>XcodebuildTestClass<cr>", { desc = "Run This Test Class" })
+					-- vim.keymap.set("n", "<leader>xd", "<cmd>XcodebuildSelectDevice<cr>", { desc = "Select Device" })
+					-- vim.keymap.set("n", "<leader>xp", "<cmd>XcodebuildSelectTestPlan<cr>", { desc = "Select Test Plan" })
+					-- vim.keymap.set("n", "<leader>xc", "<cmd>XcodebuildToggleCodeCoverage<cr>",
+					-- 	{ desc = "Toggle Code Coverage" })
+					-- vim.keymap.set("n", "<leader>xC", "<cmd>XcodebuildShowCodeCoverageReport<cr>",
+					-- 	{ desc = "Show Code Coverage Report" })
+					-- ts.load_extension('simulators')
+				end,
+			})
 
 			require('telescope').load_extension('simulators')
 			require('simulators').setup({
 				apple_simulator = true,
 				android_emulator = false,
 			})
-			vim.keymap.set("n", "<leader>xs", "<cmd>Telescope simulators run<cr><esc>", { desc = "Open The Simulators" })
+			vim.api.nvim_create_autocmd("FileType", {
+				pattern = { "swift", "objc", "objective-c" },
+
+				callback = function()
+					vim.keymap.set("n", "<leader>xs", "<cmd>Telescope simulators run<cr><esc>",
+						{ desc = "Open The Simulators" })
+				end
+			})
 
 			-- for dap
 			local xcodebuild = require("xcodebuild.integrations.dap")
 			local codelldbPath = vim.g.mason_package_path .. '/codelldb/extension/adapter/codelldb'
 			xcodebuild.setup(codelldbPath)
 
-			vim.keymap.set("n", "<leader>xdd", xcodebuild.build_and_debug, { desc = "Build & Debug" })
-			vim.keymap.set("n", "<leader>xdw", xcodebuild.debug_without_build, { desc = "Debug Without Building" })
-			vim.keymap.set("n", "<Leader>xdx", function()
-				require('dap').terminate()
-				require("xcodebuild.actions").cancel()
+			vim.api.nvim_create_autocmd("FileType", {
+				pattern = { "swift", "objc", "objective-c" },
 
-				local success, dapui = pcall(require, "dapui")
-				if success then
-					dapui.close()
+				callback = function()
+					vim.keymap.set("n", "<leader>xdd", xcodebuild.build_and_debug, { desc = "Build & Debug" })
+					vim.keymap.set("n", "<leader>xdw", xcodebuild.debug_without_build,
+						{ desc = "Debug Without Building" })
+					vim.keymap.set("n", "<Leader>xdx", function()
+						require('dap').terminate()
+						require("xcodebuild.actions").cancel()
+
+						local success, dapui = pcall(require, "dapui")
+						if success then
+							dapui.close()
+						end
+					end)
 				end
-			end)
+			})
 		end
 	},
 }

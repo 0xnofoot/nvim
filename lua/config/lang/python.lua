@@ -22,6 +22,7 @@ L = {
 
 			dap.adapters.python = {
 				type = 'executable',
+				-- TODO: 没这个东西
 				command = os.getenv('HOME') .. '/.virtualenvs/debugpy/bin/python',
 				args = { '-m', 'debugpy.adapter' },
 			}

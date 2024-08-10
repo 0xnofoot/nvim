@@ -1,43 +1,20 @@
 L = {
-	setup = function(lspconfig)
-		lspconfig.dartls.setup({
-			init_options = {
-				documentFormatting = true,
-				documentRangeFormatting = true,
-				hover = true,
-				documentSymbol = true,
-				codeAction = true,
-				completion = true,
-
-				onlyAnalyzeProjectsWithOpenFiles = true,
-				suggestFromUnimportedLibraries = true,
-				closingLabels = true,
-				outline = true,
-				flutterOutline = true,
+	-- 该配置不由 lsp-config 持有，返回给给 fluuter-tools 插件管理
+	config = {
+		autostart = true,
+		on_attach = vim.cmd('highlight! link FlutterWidgetGuides Comment'),
+		capabilities = require("lsp-zero").build_options("dartls", {}).capabilities,
+		settings = {
+			enableSnippets = false,
+			showTodos = true,
+			completeFunctionCalls = true,
+			analysisExcludedFolders = {
+				vim.fn.expand '$HOME/.pub-cache',
+				vim.fn.expand '$HOME/fvm',
 			},
-
-			cmd = { "dart", "language-server", "--protocol=lsp" },
-
-			filetypes = { "dart" },
-
-			settings = {
-				dart = {
-					completeFunctionCalls = true,
-					showTodos = true,
-				},
-			},
-
-			root_dir = function(filename, _)
-				local util = require("lspconfig.util")
-				return util.root_pattern("pubspec.yaml")(filename)
-					or util.find_git_ancestor(filename)
-					or vim.fn.getcwd()
-			end,
-			completions = {
-				completeFunctionCalls = true,
-			},
-		})
-	end,
+			lineLength = 100,
+		},
+	}
 }
 
 return L

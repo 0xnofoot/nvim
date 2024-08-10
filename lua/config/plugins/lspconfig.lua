@@ -147,11 +147,11 @@ M = {
 				lua_ls = require('config.lsp.lua_ls').setup(lspconfig),
 				pylsp = require('config.lsp.pylsp').setup(lspconfig),
 
+				-- 下面是不由 Mason 管理的 lsp
 				-- sourcekit：苹果的lsp
 				sourcekit = require('config.lsp.sourcekit').setup(lspconfig),
 
-				-- dartls: dart的lsp，由dart自身提供
-				dartls = require('config.lsp.dartls').setup(lspconfig),
+				-- dartls: dart的lsp，由dart自身提供，不在这里配置，由 flutter-tools 插件配置
 
 				-- rust-analyzer 的下载由rust 'rustup component add rust-analyzer' 指令完成
 				-- rust-analyzer 交由 'mrcjkb/rustaceanvim' 管理，不要在 mason 或 lsp-config 中配置 rust-analyzer

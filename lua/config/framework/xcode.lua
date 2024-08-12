@@ -2,6 +2,7 @@ M = {
 	plugins = {
 		-- xcode 项目的 构建，运行，测试功能插件
 		"wojciech-kulik/xcodebuild.nvim",
+		lazy = false,
 		dependencies = { 'MunifTanjim/nui.nvim' },
 		-- 配置在 lang/swift.lua 中
 		config = function()
@@ -80,21 +81,21 @@ M = {
 				pattern = { "swift", "objc", "objective-c" },
 
 				callback = function()
-					vim.keymap.set("n", "<leader>xb", "<cmd>XcodebuildBuild<cr>", { desc = "Build Project" })
-					vim.keymap.set("n", "<leader>xr", "<cmd>XcodebuildBuildRun<cr>", { desc = "Build & Run Project" })
-					vim.keymap.set("n", "<leader>xx", "<cmd>XcodebuildPicker<cr>",
+					vim.keymap.set("n", "<leader>xc", "<cmd>XcodebuildPicker<cr>",
 						{ desc = "Show All Xcodebuild Actions" })
+					vim.keymap.set("n", "<leader>xr", "<cmd>XcodebuildBuildRun<cr>", { desc = "Build & Run Project" })
+					vim.keymap.set("n", "<leader>xb", "<cmd>XcodebuildBuild<cr>", { desc = "Build Project" })
+					vim.keymap.set("n", "<leader>xs", "<cmd>XcodebuildSelectDevice<cr>", { desc = "Select Device" })
 					vim.keymap.set("n", "<leader>xl", "<cmd>XcodebuildToggleLogs<cr>",
 						{ desc = "Toggle Xcodebuild Logs" })
+
 					-- vim.keymap.set("n", "<leader>xt", "<cmd>XcodebuildTest<cr>", { desc = "Run Tests" })
 					-- vim.keymap.set("n", "<leader>xT", "<cmd>XcodebuildTestClass<cr>", { desc = "Run This Test Class" })
-					-- vim.keymap.set("n", "<leader>xd", "<cmd>XcodebuildSelectDevice<cr>", { desc = "Select Device" })
 					-- vim.keymap.set("n", "<leader>xp", "<cmd>XcodebuildSelectTestPlan<cr>", { desc = "Select Test Plan" })
 					-- vim.keymap.set("n", "<leader>xc", "<cmd>XcodebuildToggleCodeCoverage<cr>",
 					-- 	{ desc = "Toggle Code Coverage" })
 					-- vim.keymap.set("n", "<leader>xC", "<cmd>XcodebuildShowCodeCoverageReport<cr>",
 					-- 	{ desc = "Show Code Coverage Report" })
-					-- ts.load_extension('simulators')
 				end,
 			})
 
@@ -107,7 +108,7 @@ M = {
 				pattern = { "swift", "objc", "objective-c" },
 
 				callback = function()
-					vim.keymap.set("n", "<leader>xs", "<cmd>Telescope simulators run<cr><esc>",
+					vim.keymap.set("n", "<leader>xS", "<cmd>Telescope simulators run<cr><esc>",
 						{ desc = "Open The Simulators" })
 				end
 			})
@@ -121,17 +122,13 @@ M = {
 				pattern = { "swift", "objc", "objective-c" },
 
 				callback = function()
-					vim.keymap.set("n", "<leader>xdd", xcodebuild.build_and_debug, { desc = "Build & Debug" })
-					vim.keymap.set("n", "<leader>xdw", xcodebuild.debug_without_build,
+					vim.keymap.set("n", "<leader>dc", xcodebuild.build_and_debug, { desc = "Build & Debug" })
+					vim.keymap.set("n", "<leader>dC", xcodebuild.debug_without_build,
 						{ desc = "Debug Without Building" })
-					vim.keymap.set("n", "<Leader>xdx", function()
+					vim.keymap.set("n", "<Leader>dq", function()
 						require('dap').terminate()
+						require('dapui').close()
 						require("xcodebuild.actions").cancel()
-
-						local success, dapui = pcall(require, "dapui")
-						if success then
-							dapui.close()
-						end
 					end)
 				end
 			})

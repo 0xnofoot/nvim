@@ -53,6 +53,9 @@ M = {
 						vim.keymap.set("n", "<leader>xq", "<cmd>FlutterQuit<cr><esc>")
 						vim.keymap.set("n", "<leader>xR", "<cmd>FlutterRestart<cr><esc>")
 						vim.keymap.set("n", "<leader>xo", "<cmd>FlutterOutlineToggle<cr><esc>")
+
+						vim.keymap.set("n", "<leader>xS", "<cmd>Telescope simulators run<cr><esc>",
+							{ desc = "Open The Simulators" })
 					end
 				})
 			})

@@ -22,20 +22,20 @@ M = {
 					{
 						elements = {
 							{
-								id = "watches",
-								size = 0.5
+								id = "breakpoints",
+								size = 0.23
 							},
 							{
 								id = "scopes",
 								size = 0.27
 							},
 							{
-								id = "breakpoints",
-								size = 0.23
+								id = "watches",
+								size = 0.5
 							},
 						},
 						position = "left",
-						size = 20
+						size = 30
 					},
 					{
 						elements = {

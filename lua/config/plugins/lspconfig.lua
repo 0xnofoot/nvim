@@ -64,7 +64,7 @@ M = {
 				action_keys = {
 					close = 'q',
 					cancle = '<esc>',
-					jump = { "<cr>", "<tab>", "<2-leftmouse>" },
+					jump = { "<cr>", "<2-leftmouse>" },
 					open_split = { "<c-j>" },
 					open_vsplit = { "<c-l>" },
 					open_tab = { "<c-t>" },
@@ -112,16 +112,16 @@ M = {
 			callback = function(event)
 				local opts = { buffer = event.buf, noremap = true, nowait = true }
 
-				vim.keymap.set('n', 'gh', vim.lsp.buf.hover, opts)
 				vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
 				vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
 				vim.keymap.set('n', 'go', vim.lsp.buf.type_definition, opts)
+				vim.keymap.set('n', 'gh', vim.lsp.buf.hover, opts)
 				vim.keymap.set('n', 'ga', vim.lsp.buf.code_action, opts)
 				vim.keymap.set('n', 'gr', '<cmd>Telescope lsp_references<cr>', opts)
+				vim.keymap.set('n', 'gR', vim.lsp.buf.rename, opts)
 				vim.keymap.set('n', 'gt', vim.diagnostic.open_float, opts)
-				vim.keymap.set('n', '<leader>gr', vim.lsp.buf.rename, opts)
-				vim.keymap.set('n', '<leader>gt', ':Trouble<cr>', opts)
-				vim.keymap.set({ 'n', 'x' }, '<leader>gf', function() vim.lsp.buf.format({ async = true }) end, opts)
+				vim.keymap.set('n', 'gT', ':Trouble<cr>', opts)
+				vim.keymap.set({ 'n', 'x' }, 'gf', function() vim.lsp.buf.format({ async = true }) end, opts)
 			end
 		})
 

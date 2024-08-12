@@ -13,7 +13,11 @@ local ls = {
 	},
 
 	objc = {
-		require('efmls-configs.formatters.clang_format'),
+		{
+			formatCommand = string.format('%s -', require('efmls-configs.fs').executable('clang-format')),
+			formatStdin = true,
+		},
+		-- require('efmls-configs.formatters.clang_format'),
 	},
 }
 

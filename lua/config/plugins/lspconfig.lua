@@ -132,7 +132,7 @@ M = {
 				'lua_ls',
 				'pylsp',
 				'bashls',
-				'clangd',
+				-- 'clangd',
 				'efm',
 			},
 			auto_update = true,
@@ -142,7 +142,7 @@ M = {
 				-- lsp 个性化配置, 对每个语言都单独使用一份 .lua 文件
 				-- 保存在 config/lang/*.lua 中, 变量名称必须与 lsp 的名称相同
 				-- 在 .lua 文件中 调用 .lsp.setup(lspconfig) 来进行配置
-				clangd = require('config.lsp.clangd').setup(lspconfig),
+				-- clangd = require('config.lsp.clangd').setup(lspconfig),
 				bashls = require('config.lsp.bashls').setup(lspconfig),
 				lua_ls = require('config.lsp.lua_ls').setup(lspconfig),
 				pylsp = require('config.lsp.pylsp').setup(lspconfig),

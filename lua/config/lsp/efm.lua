@@ -7,9 +7,20 @@ local ls = {
 		require('efmls-configs.formatters.beautysh'),
 	},
 
-	swift = {
-		require('efmls-configs.formatters.swiftformat'),
-		-- require('efmls-configs.linters.swiftlint'),
+	c = {
+		{
+			formatCommand = string.format('%s -', require('efmls-configs.fs').executable('clang-format')),
+			formatStdin = true,
+		},
+		-- require('efmls-configs.formatters.clang_format'),
+	},
+
+	cpp = {
+		{
+			formatCommand = string.format('%s -', require('efmls-configs.fs').executable('clang-format')),
+			formatStdin = true,
+		},
+		-- require('efmls-configs.formatters.clang_format'),
 	},
 
 	objc = {
@@ -18,6 +29,11 @@ local ls = {
 			formatStdin = true,
 		},
 		-- require('efmls-configs.formatters.clang_format'),
+	},
+
+	swift = {
+		require('efmls-configs.formatters.swiftformat'),
+		-- require('efmls-configs.linters.swiftlint'),
 	},
 }
 

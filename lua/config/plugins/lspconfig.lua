@@ -148,7 +148,7 @@ M = {
 				pylsp = require('config.lsp.pylsp').setup(lspconfig),
 
 				-- 下面是不由 Mason 管理的 lsp
-				-- sourcekit：苹果的lsp
+				-- sourcekit：苹果的lsp，支持 swift 和 objc
 				sourcekit = require('config.lsp.sourcekit').setup(lspconfig),
 
 				-- dartls: dart的lsp，由dart自身提供，不在这里配置，由 flutter-tools 插件配置

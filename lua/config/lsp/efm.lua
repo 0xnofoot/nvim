@@ -11,6 +11,10 @@ local ls = {
 		require('efmls-configs.formatters.swiftformat'),
 		-- require('efmls-configs.linters.swiftlint'),
 	},
+
+	objc = {
+		require('efmls-configs.formatters.clang_format'),
+	},
 }
 
 L = {

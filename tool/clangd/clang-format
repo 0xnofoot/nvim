@@ -1,5 +1,5 @@
 # 语言: None, Cpp, Java, JavaScript, ObjC, Proto, TableGen, TextProto
-Language: Cpp
+Language: ObjC
 
 BasedOnStyle: LLVM
 

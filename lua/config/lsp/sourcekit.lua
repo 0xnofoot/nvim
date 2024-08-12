@@ -1,7 +1,7 @@
 L = {
 	setup = function(lspconfig)
 		lspconfig.sourcekit.setup({
-			init_options = {
+			init_options    = {
 				documentFormatting = true,
 				documentRangeFormatting = true,
 				hover = true,
@@ -10,14 +10,20 @@ L = {
 				completion = true
 			},
 
-			cmd = {
-				-- sourcekit path
-				"/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/sourcekit-lsp",
+			cmd             = {
+				vim.g.sourcekit_path,
 			},
 
-			filetypes = { "swift", "objective-c", "objc" },
+			filetypes       = { "swift", "objective-c", "objc" },
 
-			root_dir = function(filename, _)
+			get_language_id = function(_, ftype)
+				if ftype == "objc" then
+					return "objective-c"
+				end
+				return ftype
+			end,
+
+			root_dir        = function(filename, _)
 				local util = require("lspconfig.util")
 				return util.root_pattern("buildServer.json")(filename)
 					or util.root_pattern("*.xcodeproj", "*.xcworkspace")(filename)
@@ -25,7 +31,7 @@ L = {
 					or util.root_pattern("Package.swift")(filename)
 					or vim.fn.getcwd()
 			end,
-			completions = {
+			completions     = {
 				completeFunctionCalls = true,
 			},
 		})

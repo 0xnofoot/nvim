@@ -7,3 +7,5 @@ vim.g.mason_package_path = os.getenv('HOME') .. '/.local/share/nvim/mason/packag
 vim.g.efm_config_path = os.getenv('HOME') .. '/.config/nvim/tool/efm/config.yaml'
 
 vim.g.snips_author = 'Toofon Wang'
+
+vim.g.sourcekit_path = "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/sourcekit-lsp"

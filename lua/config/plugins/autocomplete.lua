@@ -114,7 +114,7 @@ local M = {
 				'quangnguyen30192/cmp-nvim-ultisnips',
 			},
 			config = function()
-				vim.g.UltiSnipsSnippetDirectories = { "~/.config/nvim/Ultisnips" }
+				vim.g.UltiSnipsSnippetDirectories = { os.getenv("HOME") .. "/.config/nvim/tool/Ultisnips" }
 				-- vim.g.UltiSnipsExpandTrigger = '<Plug>(ultisnips_expand)'
 				-- vim.g.UltiSnipsJumpForwardTrigger = '<Plug>(ultisnips_jump_forward)'
 				-- vim.g.UltiSnipsJumpBackwardTrigger = '<Plug>(ultisnips_jump_backward)'

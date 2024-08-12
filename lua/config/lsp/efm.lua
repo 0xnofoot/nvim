@@ -31,6 +31,14 @@ local ls = {
 		-- require('efmls-configs.formatters.clang_format'),
 	},
 
+	objcpp = {
+		{
+			formatCommand = string.format('%s -', require('efmls-configs.fs').executable('clang-format')),
+			formatStdin = true,
+		},
+		-- require('efmls-configs.formatters.clang_format'),
+	},
+
 	swift = {
 		require('efmls-configs.formatters.swiftformat'),
 		-- require('efmls-configs.linters.swiftlint'),

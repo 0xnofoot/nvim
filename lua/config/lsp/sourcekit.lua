@@ -14,12 +14,17 @@ L = {
 				vim.g.sourcekit_path,
 			},
 
-			filetypes       = { "swift", "objective-c", "objc", "objcpp", "c", "c++", "cpp" },
+			filetypes       = { "swift", "objective-c", "objc", "objective-cpp", "objcpp", "c", "cpp" },
 
 			get_language_id = function(_, ftype)
 				if ftype == "objc" then
 					return "objective-c"
 				end
+
+				if ftype == "objcpp" then
+					return "objective-cpp"
+				end
+
 				return ftype
 			end,
 

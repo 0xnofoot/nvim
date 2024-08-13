@@ -72,6 +72,8 @@ M = {
 				}
 			})
 		end,
+
+		vim.treesitter.language.register('objc', 'objcpp')
 	},
 }
 

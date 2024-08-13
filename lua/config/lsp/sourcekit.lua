@@ -20,6 +20,10 @@ L = {
 				if ftype == "objc" then
 					return "objective-c"
 				end
+
+				if ftype == "objcpp" then
+					return "objective-cpp"
+				end
 				return ftype
 			end,
 
@@ -35,30 +39,6 @@ L = {
 			completions     = {
 				completeFunctionCalls = true,
 			},
-		})
-
-		-- 将 mm 和 h 文件类型更改为 objc
-		vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
-			pattern = { "*.mm", "*.h" },
-			callback = function()
-				local cwd = vim.fn.getcwd()
-				local patterns = {
-					"buildServer.json",
-					"*.xcodeproj",
-					"*.xcworkspace",
-					"Pods",
-					"Podfile",
-					"Package.swift"
-				}
-
-				for _, pattern in ipairs(patterns) do
-					local matches = vim.fn.glob(cwd .. "/" .. pattern)
-					if matches ~= "" then
-						vim.cmd [[ set filetype=objc ]]
-						vim.cmd [[ LspStart efm ]]
-					end
-				end
-			end,
 		})
 	end,
 }

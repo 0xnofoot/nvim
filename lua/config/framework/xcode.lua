@@ -78,7 +78,7 @@ M = {
 			})
 
 			vim.api.nvim_create_autocmd("FileType", {
-				pattern = { "swift", "objc", "objective-c" },
+				pattern = { "swift", "objc", "objective-c", "objcpp", "objective-cpp" },
 
 				callback = function()
 					vim.keymap.set("n", "<leader>xc", "<cmd>XcodebuildPicker<cr>",

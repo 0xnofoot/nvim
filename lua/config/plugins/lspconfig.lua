@@ -1,19 +1,3 @@
-local F = {
-	signature_opt = {
-		bind = true,
-		floating_window = true,
-		hint_prefix = '🐰 ',
-		hint_scheme = 'luna',
-		hint_inline = function() return false end,
-		handler_opts = {
-			border = 'rounded'
-		},
-		always_trigger = true,
-		hi_parameter = 'IncSearch',
-		toggle_key_flip_floatwin_setting = true,
-	},
-}
-
 M = {
 	'VonHeikemen/lsp-zero.nvim',
 	branch = 'v3.x',
@@ -98,7 +82,21 @@ M = {
 		local lspconfig = require('lspconfig')
 
 		lsp_zero.on_attach(function(client, bufnr)
-			require('lsp_signature').on_attach(F.signature_opt, bufnr)
+			local lsp_signature_opt = {
+				bind = true,
+				floating_window = true,
+				hint_prefix = '🐰 ',
+				hint_scheme = 'luna',
+				hint_inline = function() return false end,
+				handler_opts = {
+					border = 'rounded'
+				},
+				always_trigger = true,
+				hi_parameter = 'IncSearch',
+				toggle_key_flip_floatwin_setting = true,
+			}
+
+			require('lsp_signature').on_attach(lsp_signature_opt, bufnr)
 
 			-- for barbecue winbar
 			if client.server_capabilities["documentSymbolProvider"] then

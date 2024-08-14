@@ -72,6 +72,7 @@ M = {
 				},
 			},
 		},
+
 		{
 			-- efm 的扩展配置，用于快速调用 formatter 和 linter
 			'creativenull/efmls-configs-nvim',

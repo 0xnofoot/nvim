@@ -8,35 +8,19 @@ local ls = {
 	},
 
 	c = {
-		{
-			formatCommand = string.format('%s -', require('efmls-configs.fs').executable('clang-format')),
-			formatStdin = true,
-		},
-		-- require('efmls-configs.formatters.clang_format'),
+		require('efmls-configs.formatters.clang_format'),
 	},
 
 	cpp = {
-		{
-			formatCommand = string.format('%s -', require('efmls-configs.fs').executable('clang-format')),
-			formatStdin = true,
-		},
-		-- require('efmls-configs.formatters.clang_format'),
+		require('efmls-configs.formatters.clang_format'),
 	},
 
 	objc = {
-		{
-			formatCommand = string.format('%s -', require('efmls-configs.fs').executable('clang-format')),
-			formatStdin = true,
-		},
-		-- require('efmls-configs.formatters.clang_format'),
+		require('efmls-configs.formatters.clang_format'),
 	},
 
 	objcpp = {
-		{
-			formatCommand = string.format('%s -', require('efmls-configs.fs').executable('clang-format')),
-			formatStdin = true,
-		},
-		-- require('efmls-configs.formatters.clang_format'),
+		require('efmls-configs.formatters.clang_format'),
 	},
 
 	swift = {

@@ -288,7 +288,7 @@ M = {
 		},
 		keys = {
 			{
-				"<leader>f",
+				"<leader><leader>",
 				mode = { "n" },
 				function()
 					require("flash").jump({

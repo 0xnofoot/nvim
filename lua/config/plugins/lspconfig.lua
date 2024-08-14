@@ -165,7 +165,8 @@ M = {
 
 		require('mason-tool-installer').setup({
 			ensure_installed = {
-				'beautysh',
+				'shfmt',
+				'shellcheck',
 				'codelldb',
 			},
 			auto_update = true,

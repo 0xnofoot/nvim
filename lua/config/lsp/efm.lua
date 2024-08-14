@@ -1,10 +1,12 @@
 local ls = {
 	sh = {
-		require('efmls-configs.formatters.beautysh'),
+		require('efmls-configs.formatters.shfmt'),
+		require('efmls-configs.linters.shellcheck'),
 	},
 
 	zsh = {
-		require('efmls-configs.formatters.beautysh'),
+		require('efmls-configs.formatters.shfmt'),
+		require('efmls-configs.linters.shellcheck'),
 	},
 
 	c = {

@@ -1,16 +1,7 @@
 L = {
 	setup = function(lspconfig)
 		lspconfig.sourcekit.setup({
-			init_options    = {
-				documentFormatting = true,
-				documentRangeFormatting = true,
-				hover = true,
-				documentSymbol = true,
-				codeAction = true,
-				completion = true
-			},
-
-			cmd             = {
+			cmd          = {
 				vim.g.sourcekit_path,
 			},
 
@@ -36,9 +27,6 @@ L = {
 					or util.root_pattern("Package.swift")(filename)
 					or vim.fn.getcwd()
 			end,
-			completions     = {
-				completeFunctionCalls = true,
-			},
 		})
 	end,
 }

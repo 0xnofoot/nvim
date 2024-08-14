@@ -4,45 +4,6 @@ local mode_i = { "i" }
 local mode_n = { "n" }
 local mode_nv = { "n", "v" }
 
-local function getCurrentTabWinCount()
-	local current_tab_win_count = 0
-	local wins = vim.api.nvim_tabpage_list_wins(vim.api.nvim_get_current_tabpage())
-	for _, win in ipairs(wins) do
-		local winType = vim.fn.win_gettype(win)
-
-		if winType ~= "popup" and winType ~= "preview" then
-			current_tab_win_count = current_tab_win_count + 1
-		end
-	end
-
-	return current_tab_win_count
-end
-
-vim.g.getCurrentTabWinCount = getCurrentTabWinCount
-
-local function quitNvim()
-	local current_buf_of_win_count = #vim.fn.getbufinfo(vim.fn.bufnr("%"))[1].windows
-	local buf_count = vim.fn.len(vim.fn.getbufinfo({ buflisted = 1 }))
-
-	if buf_count == 1 and current_buf_of_win_count == 1 then
-		vim.api.nvim_command("quit")
-		return
-	end
-
-	if current_buf_of_win_count == 1 then
-		-- depend on the nvim tree open state
-		if vim.g[vim.g.getNvimTreeOpenStateIndex()] and getCurrentTabWinCount() == 2 then
-			local current_buf = vim.api.nvim_get_current_buf()
-			vim.api.nvim_command("bprevious")
-			vim.api.nvim_buf_delete(current_buf, { force = true })
-		else
-			vim.api.nvim_command("bdelete")
-		end
-	else
-		vim.api.nvim_command("close")
-	end
-end
-
 local nmappings = {
 	-- Movement
 	{ from = "J",            to = "5j",                                                  mode = mode_nv },
@@ -89,7 +50,7 @@ local nmappings = {
 
 	{ from = ";",            to = ":",                                                   mode = mode_nv },
 	{ from = "S",            to = ":write<CR>",                                          mode = mode_nv },
-	{ from = "Q",            to = quitNvim,                                              mode = mode_nv },
+	{ from = "Q",            to = vim.g.quitNvim,                                        mode = mode_nv },
 
 	{ from = "`",            to = "~",                                                   mode = mode_nv },
 	{ from = "'",            to = "%",                                                   mode = mode_nv },

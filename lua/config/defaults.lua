@@ -113,22 +113,6 @@ vim.api.nvim_create_autocmd("BufEnter", { pattern = "*", command = "silent! lcd 
 -- 再次打开文件时光标定位到上一次退出的位置
 vim.cmd([[au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif]])
 
-
--- util function
-local function showDeepTable(table, indent)
-	indent = indent or 0
-	for key, value in pairs(table) do
-		if type(value) == "table" then
-			print(string.rep("  ", indent) .. key .. ":")
-			showDeepTable(value, indent + 1)
-		else
-			print(string.rep("  ", indent) .. key .. ": " .. tostring(value))
-		end
-	end
-end
-
-vim.g.showDeepTable = showDeepTable
-
 -- 读取 config.machine_specific.lua 文件，如果没有该文件则创建该文件并复制对应内容
 local config_path = vim.fn.stdpath("config")
 local current_config_path = config_path .. "/lua/config/machine_specific.lua"

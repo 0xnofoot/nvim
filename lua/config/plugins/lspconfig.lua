@@ -113,6 +113,7 @@ M = {
 			callback = function(event)
 				local opts = { buffer = event.buf, noremap = true, nowait = true }
 
+				vim.keymap.set('n', 'gj', vim.lsp.buf.declaration, opts)
 				vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
 				vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
 				vim.keymap.set('n', 'go', vim.lsp.buf.type_definition, opts)
@@ -138,9 +139,8 @@ M = {
 			},
 			auto_update = true,
 			handlers = {
-				lsp_zero.default_setup,
 
-				-- lsp 个性化配置, 对每个语言都单独使用一份 .lua 文件
+				-- lsp 个性化配置, 对每个 lsp 都单独使用一份 .lua 文件
 				-- 保存在 config/lang/*.lua 中, 变量名称必须与 lsp 的名称相同
 				-- 在 .lua 文件中 调用 .lsp.setup(lspconfig) 来进行配置
 				-- clangd = require('config.lsp.clangd').setup(lspconfig),

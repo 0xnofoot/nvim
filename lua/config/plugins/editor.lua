@@ -329,8 +329,8 @@ M = {
 		config = function()
 			-- vim.g.any_jump_enable_keybindings = 1
 			vim.g.any_jump_disable_default_keybindings = 1
-			vim.keymap.set("n", "gj", ":AnyJump<CR>", { noremap = true })
-			vim.keymap.set("x", "gj", ":AnyJumpVisual<CR>", { noremap = true })
+			vim.keymap.set("n", "<leader>gj", ":AnyJump<CR>", { noremap = true })
+			vim.keymap.set("x", "<leader>gj", ":AnyJumpVisual<CR>", { noremap = true })
 			vim.g.any_jump_window_width_ratio = 0.9
 			vim.g.any_jump_window_height_ratio = 0.9
 

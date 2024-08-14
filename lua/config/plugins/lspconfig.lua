@@ -167,6 +167,7 @@ M = {
 			ensure_installed = {
 				'shfmt',
 				'shellcheck',
+				'clang-format',
 				'codelldb',
 			},
 			auto_update = true,

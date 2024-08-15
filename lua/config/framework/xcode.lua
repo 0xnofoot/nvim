@@ -122,12 +122,20 @@ M = {
 				pattern = { "swift", "objc", "objective-c" },
 
 				callback = function()
-					vim.keymap.set("n", "<leader>dc", xcodebuild.build_and_debug, { desc = "Build & Debug" })
-					vim.keymap.set("n", "<leader>dC", xcodebuild.debug_without_build,
+					-- 重定向 运行 快捷键
+					vim.keymap.set("n", "<leader>dr", xcodebuild.build_and_debug, { desc = "Build & Debug" })
+					-- 重定向 重新运行 快捷键
+					vim.keymap.set("n", "<leader>dR", xcodebuild.debug_without_build,
 						{ desc = "Debug Without Building" })
+					-- 重定向 关闭 dap 和 dapui 快捷键
 					vim.keymap.set("n", "<Leader>dq", function()
 						require('dap').terminate()
 						require('dapui').close()
+						require("xcodebuild.actions").cancel()
+					end)
+					-- 重定向 关闭 dap 快捷键
+					vim.keymap.set("n", "<Leader>dQ", function()
+						require('dap').terminate()
 						require("xcodebuild.actions").cancel()
 					end)
 				end

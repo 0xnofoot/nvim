@@ -60,6 +60,7 @@ M = {
 		)
 
 		dap.listeners.after.event_initialized["dapui_config"] = dapui.open
+		dap.set_log_level("error")
 
 		vim.api.nvim_set_hl(0, 'DapBreakpoint', { ctermbg = 0, fg = '', bg = '#432831' })
 		vim.api.nvim_set_hl(0, 'DapLogPoint', { ctermbg = 0, fg = '#61afef', bg = '#43353f' })
@@ -85,20 +86,35 @@ M = {
 		vim.keymap.set("n", "<leader>dl", function()
 			dap.set_breakpoint(nil, nil, vim.fn.input("Log point message: "))
 		end)
+
+		-- 运行
+		vim.keymap.set("n", "<leader>dr", dap.continue)
+		-- 放行
 		vim.keymap.set("n", "<leader>dc", dap.continue)
-		vim.keymap.set("n", "<leader>ds", dap.step_over)
-		vim.keymap.set("n", "<leader>di", dap.step_into)
+		-- 重新运行
+		vim.keymap.set('n', '<Leader>dR', dap.restart)
+
+		-- 下一步
+		vim.keymap.set("n", "<leader>dn", dap.step_over)
+		-- 退出子函数
 		vim.keymap.set("n", "<leader>do", dap.step_out)
-		vim.keymap.set('n', '<Leader>dr', dap.restart)
-		vim.keymap.set('n', '<Leader>dx', dap.terminate)
-		vim.keymap.set('n', '<Leader>dd', function()
+		-- 进入子函数
+		vim.keymap.set("n", "<leader>di", dap.step_into)
+		-- back
+		vim.keymap.set('n', '<Leader>db', dap.step_back)
+
+		-- toggle dapui
+		vim.keymap.set('n', '<Leader>du', function()
 			dapui.toggle({ reset = true })
 		end)
 
+		-- 关闭 dap 及 dapui
 		vim.keymap.set("n", "<leader>dq", function()
 			dap.terminate()
 			dapui.close()
 		end)
+		-- 关闭 dap
+		vim.keymap.set('n', '<Leader>dQ', dap.terminate)
 
 		require('telescope').load_extension('telescope-tabs')
 

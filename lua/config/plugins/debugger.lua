@@ -88,7 +88,10 @@ M = {
 		end)
 
 		-- 运行
-		vim.keymap.set("n", "<leader>dr", dap.continue)
+		vim.keymap.set("n", "<leader>dr", function()
+			dap.continue()
+			dapui.open()
+		end)
 		-- 放行
 		vim.keymap.set("n", "<leader>dc", dap.continue)
 		-- 重新运行

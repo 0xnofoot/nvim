@@ -123,10 +123,15 @@ M = {
 
 				callback = function()
 					-- 重定向 运行 快捷键
-					vim.keymap.set("n", "<leader>dr", xcodebuild.build_and_debug, { desc = "Build & Debug" })
-					-- 重定向 重新运行 快捷键
-					vim.keymap.set("n", "<leader>dR", xcodebuild.debug_without_build,
-						{ desc = "Debug Without Building" })
+					vim.keymap.set("n", "<leader>dr", function()
+						xcodebuild.build_and_debug()
+						require('dapui').open()
+					end)
+					-- 重定向 重新运行 快捷键到 不编译调试
+					vim.keymap.set("n", "<leader>dR", function()
+						xcodebuild.debug_without_build()
+						require('dapui').open()
+					end)
 					-- 重定向 关闭 dap 和 dapui 快捷键
 					vim.keymap.set("n", "<Leader>dq", function()
 						require('dap').terminate()

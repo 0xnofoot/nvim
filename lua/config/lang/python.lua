@@ -14,16 +14,13 @@ L = {
 					request = 'launch',
 					name = 'Launch file',
 					program = '${file}',
-					pythonPath = function()
-						return vim.g.python3_host_prog
-					end,
+					pythonPath = vim.g.python,
 				},
 			}
 
 			dap.adapters.python = {
 				type = 'executable',
-				-- TODO: 没这个东西
-				command = os.getenv('HOME') .. '/.virtualenvs/debugpy/bin/python',
+				command = vim.g.python,
 				args = { '-m', 'debugpy.adapter' },
 			}
 		end,

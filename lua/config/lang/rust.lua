@@ -28,9 +28,10 @@ L = {
 	},
 
 	lsp = {
+		-- TODO: bufer enter
 		setup = function(client, bufnr)
 			-- remap some key
-			vim.keymap.set('n', '<leader>dc',
+			vim.keymap.set('n', '<leader>dr',
 				function()
 					vim.cmd.RustLsp('debuggables')
 				end,

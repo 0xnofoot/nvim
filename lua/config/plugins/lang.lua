@@ -29,6 +29,8 @@ M = {
 	require('config.lang.rust').plugins,
 
 	require('config.lang.markdown').plugins,
+
+	require('config.lang.dart').plugins,
 }
 
 return M

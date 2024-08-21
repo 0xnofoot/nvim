@@ -636,6 +636,57 @@ M = {
 	},
 
 	{
+		-- 代码大纲
+		"hedyhli/outline.nvim",
+		config = function()
+			local outline = require("outline")
+
+			local function toggle_outline()
+				local is_outline_open = outline.is_open()
+				local is_outline_focus = outline.is_focus_in_outline()
+
+				if not is_outline_open then
+					outline.open_outline()
+				else
+					if is_outline_focus then
+						outline.close_outline()
+					else
+						outline.focus_outline()
+					end
+				end
+			end
+
+			vim.keymap.set("n", "<leader>o", toggle_outline, { desc = "Toggle Outline" })
+
+			require("outline").setup {
+				keymaps = {
+					show_help = '?',
+					close = 'Q',
+
+					goto_location = '<Cr>',
+					peek_location = 'gd',
+					goto_and_close = 'gD',
+					hover_symbol = 'gh',
+					restore_location = 'gr',
+					rename_symbol = 'gR',
+					code_actions = 'ga',
+
+					toggle_preview = 'p',
+					fold = '<nop>',
+					unfold = '<nop>',
+					fold_toggle = 'l',
+					fold_toggle_all = '<nop>',
+					fold_all = '<nop>',
+					unfold_all = '<nop>',
+					fold_reset = '<nop>',
+					down_and_jump = '<C-j>',
+					up_and_jump = '<C-k>',
+				},
+			}
+		end,
+	},
+
+	{
 		-- 快速打开 lazygit
 		'kdheepak/lazygit.nvim',
 		event = "VeryLazy",

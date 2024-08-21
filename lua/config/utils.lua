@@ -21,6 +21,8 @@ local function quitNvim()
 		return
 	end
 
+	vim.api.nvim_command("OutlineClose")
+
 	local current_buf_of_win_count = #vim.fn.getbufinfo(vim.fn.bufnr("%"))[1].windows
 	local buf_count = vim.fn.len(vim.fn.getbufinfo({ buflisted = 1 }))
 

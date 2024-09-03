@@ -59,8 +59,9 @@ M = {
 
 		{
 			-- efm 的扩展配置，用于快速调用 formatter 和 linter
-			'creativenull/efmls-configs-nvim',
-			version = 'v1.x.x', -- version is optional, but recommended
+			-- fork了原始代码，删除了不用的东西，自定义了一些东西
+			'0xnofoot/efmls-configs-nvim',
+			branch = "nofoot",
 		},
 
 		{

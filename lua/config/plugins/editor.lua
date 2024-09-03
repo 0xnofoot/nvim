@@ -82,7 +82,10 @@ M = {
 				enable_get_fold_virt_text = true,
 				fold_virt_text_handler = handler,
 				open_fold_hl_timeout = 150,
-				close_fold_kinds_for_ft = { "imports", "comment" },
+				close_fold_kinds_for_ft = {
+					description = {},
+					default = { default = {} }
+				},
 				preview = {
 					win_config = {
 						border = { "", "─", "", "", "", "─", "", "" },
@@ -530,7 +533,7 @@ M = {
 					files_first = false,
 				},
 				view = {
-					width = 30,
+					width = 60,
 				},
 				renderer = {
 					group_empty = true,

@@ -27,7 +27,7 @@ local ls = {
 
 	swift = {
 		require('efmls-configs.formatters.swiftformat'),
-		-- require('efmls-configs.linters.swiftlint'),
+		require('efmls-configs.linters.swiftlint'),
 	},
 }
 
@@ -38,7 +38,7 @@ L = {
 			command = "efm-langserver",
 			args = {
 				'-c',
-				vim.g.efm_config_path,
+				vim.g.tool_config_path .. "/efm/config.yaml"
 			},
 
 			filetypes = vim.tbl_keys(ls),

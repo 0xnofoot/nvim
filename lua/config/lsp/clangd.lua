@@ -1,9 +1,9 @@
 L = {
-	setup = function(lspconfig)
-		lspconfig.clangd.setup({
+    setup = function(lspconfig)
+        lspconfig.clangd.setup({
 
-		})
-	end,
+        })
+    end,
 }
 
 return L

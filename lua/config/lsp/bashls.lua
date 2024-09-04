@@ -1,11 +1,11 @@
 L = {
-	setup = function(lspconfig)
-		lspconfig.bashls.setup({
+    setup = function(lspconfig)
+        lspconfig.bashls.setup({
 
-			filetypes = { "sh", "zsh" },
+            filetypes = { "sh", "zsh" },
 
-		})
-	end,
+        })
+    end,
 }
 
 return L

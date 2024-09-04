@@ -1,7 +1,7 @@
 M = {
-	require('config.framework.xcode').plugins,
+    require('config.framework.xcode').plugins,
 
-	require('config.framework.flutter').plugins,
+    require('config.framework.flutter').plugins,
 }
 
 return M

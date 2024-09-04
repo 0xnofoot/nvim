@@ -13,4 +13,5 @@ vim.g.mason_package_path = os.getenv('HOME') .. '/.local/share/nvim/mason/packag
 
 vim.g.snips_author = 'Toofon Wang'
 
-vim.g.sourcekit_path = "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/sourcekit-lsp"
+vim.g.sourcekit_path =
+"/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/sourcekit-lsp"

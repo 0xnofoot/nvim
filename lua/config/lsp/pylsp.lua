@@ -1,9 +1,9 @@
 L = {
-	setup = function(lspconfig)
-		lspconfig.pylsp.setup({
+    setup = function(lspconfig)
+        lspconfig.pylsp.setup({
 
-		})
-	end,
+        })
+    end,
 }
 
 return L

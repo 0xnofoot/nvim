@@ -122,7 +122,7 @@ M = {
                 vim.keymap.set('n', 'gR', vim.lsp.buf.rename, opts)
                 vim.keymap.set('n', 'gt', vim.diagnostic.open_float, opts)
                 vim.keymap.set('n', 'gT', ':Trouble<cr>', opts)
-                vim.keymap.set({ 'n', 'x' }, 'gf', function() vim.lsp.buf.format({ async = true }) end, opts)
+                vim.keymap.set({ 'n', 'v', 'x' }, '<leader>gf', function() vim.lsp.buf.format({ async = true }) end, opts)
             end
         })
 

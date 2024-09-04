@@ -2,7 +2,8 @@ vim.g.mapleader = " "
 
 local mode_i = { "i" }
 local mode_n = { "n" }
-local mode_nv = { "n", "v" }
+local mode_v = { "v", "x" }
+local mode_nv = { "n", "v", "x" }
 
 local nmappings = {
     -- Movement
@@ -71,6 +72,11 @@ local nmappings = {
 
     { from = "U",            to = "<c-r>",                                               mode = mode_n },
     { from = "<leader><rc>", to = ":nohlsearch<CR>",                                     mode = mode_nv },
+
+    { from = "u",            to = "<nop>",                                               mode = mode_v },
+    { from = "U",            to = "<nop>",                                               mode = mode_v },
+    { from = "<leader>u",    to = "u",                                                   mode = mode_v },
+    { from = "<leader>U",    to = "U",                                                   mode = mode_v },
 }
 
 for _, mapping in ipairs(nmappings) do

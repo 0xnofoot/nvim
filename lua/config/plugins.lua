@@ -36,6 +36,8 @@ require("lazy").setup({
     require("config.plugins.autocomplete"),
     -- treesitter 文本分析
     require("config.plugins.treesitter"),
+    -- 提供 range format 能力，不依赖 lsp 需要单独配置
+    require("config.plugins.conform"),
 
     -- 运行和调试
     require("config.plugins.lang"),

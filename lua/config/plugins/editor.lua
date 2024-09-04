@@ -28,14 +28,14 @@ M = {
         opts = {
             filetypes = { "*" },
             user_default_options = {
-                RGB      = true, -- #RGB hex codes
-                RRGGBB   = true, -- #RRGGBB hex codes like #8080ff
-                names    = true, -- "Name" codes like Blue
-                RRGGBBAA = true, -- #RRGGBBAA hex codes like
-                rgb_fn   = true, -- CSS rgb() and rgba() functions
-                hsl_fn   = true, -- CSS hsl() and hsla() functions
-                css      = true, -- Enable all CSS features: rgb_fn, hsl_fn, names, RGB, RRGGBB
-                css_fn   = true, -- Enable all CSS *functions*: rgb_fn, hsl_fn
+                RGB      = true,         -- #RGB hex codes
+                RRGGBB   = true,         -- #RRGGBB hex codes like #8080ff
+                names    = true,         -- "Name" codes like Blue
+                RRGGBBAA = true,         -- #RRGGBBAA hex codes like
+                rgb_fn   = true,         -- CSS rgb() and rgba() functions
+                hsl_fn   = true,         -- CSS hsl() and hsla() functions
+                css      = true,         -- Enable all CSS features: rgb_fn, hsl_fn, names, RGB, RRGGBB
+                css_fn   = true,         -- Enable all CSS *functions*: rgb_fn, hsl_fn
                 -- Available modes: foreground, background
                 mode     = "background", -- Set the display mode.
             },
@@ -159,8 +159,8 @@ M = {
 
             vim.keymap.set("n", "<c-p>", "<Plug>(YankyCycleForward)")
             vim.keymap.set("n", "<c-n>", "<Plug>(YankyCycleBackward)")
-            vim.keymap.set({ "n", "x" }, "p", "<Plug>(YankyPutAfter)")
-            vim.keymap.set({ "n", "x" }, "P", "<Plug>(YankyPutBefore)")
+            vim.keymap.set({ "n", "v", "x" }, "p", "<Plug>(YankyPutAfter)")
+            vim.keymap.set({ "n", "v", "x" }, "P", "<Plug>(YankyPutBefore)")
 
             require("yanky").setup({
                 ring = {
@@ -283,8 +283,8 @@ M = {
                     relative = "editor",
                     width = 1, -- when <=1 it"s a percentage of the editor width
                     height = 1,
-                    row = -1, -- when negative it"s an offset from the bottom
-                    col = 0, -- when negative it"s an offset from the right
+                    row = -1,  -- when negative it"s an offset from the bottom
+                    col = 0,   -- when negative it"s an offset from the right
                     zindex = 1000,
                 },
             },
@@ -305,7 +305,7 @@ M = {
             },
             {
                 "<leader><esc>f",
-                mode = { "n", "o", "x" },
+                mode = { "n", "o", "v", "x" },
                 function()
                     require("flash").treesitter()
                 end,
@@ -333,13 +333,13 @@ M = {
             -- vim.g.any_jump_enable_keybindings = 1
             vim.g.any_jump_disable_default_keybindings = 1
             vim.keymap.set("n", "<leader>gj", ":AnyJump<CR>", { noremap = true })
-            vim.keymap.set("x", "<leader>gj", ":AnyJumpVisual<CR>", { noremap = true })
+            vim.keymap.set({ "v", "x" }, "<leader>gj", ":AnyJumpVisual<CR>", { noremap = true })
             vim.g.any_jump_window_width_ratio = 0.9
             vim.g.any_jump_window_height_ratio = 0.9
 
             -- 这个插件的默认快捷键配置无法设置为 disable,可能是 bug
             -- 所有在这重新配置一下 <leader>j
-            vim.keymap.set("n", "<leader>j", ":wincmd j<cr>")
+            vim.keymap.set("n", "<leader>j", ":wincmd j<CR>")
         end
     },
 
@@ -348,8 +348,8 @@ M = {
         "mbbill/undotree",
         event = 'VeryLazy',
         config = function()
+            vim.keymap.set("n", "<leader>u", ":UndotreeToggle<CR>")
             vim.cmd([[
-					noremap <leader>u :UndotreeToggle<CR>
 					let g:undotree_DiffAutoOpen = 1
 					let g:undotree_SetFocusWhenToggle = 1
 					let g:undotree_ShortIndicators = 1

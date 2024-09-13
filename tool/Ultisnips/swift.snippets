@@ -3,12 +3,20 @@ from vimsnippets import get_comment_format
 # g:snips_author = "toofonwang"
 endglobal
 
+# snippet todo "TODO comment" bw
+# // TODO: ${1:#<something>} <${2:`!v strftime('%d-%m-%y')`}, ${3:`!v g:snips_author`}>
+# endsnippet
+
 snippet todo "TODO comment" bw
-// TODO: ${1:#<something>} <${2:`!v strftime('%d-%m-%y')`}, ${3:`!v g:snips_author`}>
+// TODO: ${1:`!v g:snips_author`} ${2:#<something>}
+endsnippet
+
+snippet fixme "fixme comment" bw
+// FIXME: ${1:`!v g:snips_author`} ${2:#<something>}
 endsnippet
 
 snippet mk "MARK comment" bw
-// MARK: ${1:#<something>} <${2:`!v strftime('%d-%m-%y')`}, ${3:`!v g:snips_author`}>
+// MARK: - ${1:#<something>}
 endsnippet
 
 snippet des "description"

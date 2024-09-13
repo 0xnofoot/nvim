@@ -4,6 +4,18 @@ priority -50
 #                            TextMate Snippets                            #
 ###########################################################################
 
+snippet todo "TODO comment" bw
+// TODO: ${1:`!v g:snips_author`} ${2:#<something>}
+endsnippet
+
+snippet fixme "fixme comment" bw
+// FIXME: ${1:`!v g:snips_author`} ${2:#<something>}
+endsnippet
+
+snippet mk "MARK comment" bw
+#pragma mark - ${1:#<something>}
+endsnippet
+
 snippet imp "#import (imp)" b
 #import "${1:`!p snip.rv = re.sub(r'\..*$', '.h', fn)`}"
 endsnippet
@@ -272,6 +284,4 @@ endsnippet
 # vim:ft=snippets:
 
 # TODO 
-# autoreleasepool
-# mark
 # block

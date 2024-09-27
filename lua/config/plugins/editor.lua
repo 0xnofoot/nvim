@@ -121,18 +121,29 @@ M = {
     },
 
     {
-        -- 快速注释
-        "tomtom/tcomment_vim",
-        event = "BufRead",
+        -- 注释插件
+        'numToStr/Comment.nvim',
         config = function()
-            vim.g.tcomment_maps = true
-            vim.g.tcomment_textobject_inlinecomment = ""
-
-            -- 不知道怎么绑定 ctrl+/, 好像 vim 中 使用 <c-_> 代替 <c-/>
-            -- 但是这可能在 tmux 中不起作用, 使用 <c-c> 代替
-            vim.keymap.set({ "n", "v" }, "<c-c>", ":TComment<CR>0w", { silent = true })
-            vim.keymap.set({ "i" }, "<c-c>", "<ESC>:TComment<CR>0w", { silent = true })
+            require("Comment").setup(
+                {
+                    toggler = {
+                        line = "<c-_>",
+                        block = nil,
+                    },
+                    opleader = {
+                        line = "<c-_>",
+                        block = nil,
+                    },
+                    extra = {
+                        above = nil,
+                        below = nil,
+                        eol = nil,
+                    },
+                }
+            )
+            vim.keymap.set('i', '<C-_>', require('Comment.api').toggle.linewise.current)
         end
+
     },
 
     {

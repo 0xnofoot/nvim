@@ -47,6 +47,7 @@ local nmappings = {
     { from = "tq",           to = ":tabclose<CR>",                                       mode = mode_nv },
 
     -- Useful actions
+    { from = "<c-c>",        to = "<nop>",                                               mode = mode_nv },
     { from = "<c-w>",        to = "<nop>",                                               mode = mode_nv },
     { from = "q",            to = "<nop>",                                               mode = mode_nv },
     { from = "Q",            to = "<nop>",                                               mode = mode_nv },

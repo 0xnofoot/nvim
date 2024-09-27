@@ -41,7 +41,7 @@ M = {
 
             require("barbecue").setup({
                 create_autocmd = false, -- prevent barbecue from updating itself automatically
-                attach_navic = false, -- prevent barbecue from automatically attaching nvim-navic
+                attach_navic = false,   -- prevent barbecue from automatically attaching nvim-navic
                 show_modified = true,
 
                 theme = {
@@ -189,7 +189,7 @@ M = {
                     untracked    = { text = '┆' },
                 },
                 signs_staged_enable          = true,
-                signcolumn                   = true, -- Toggle with `:Gitsigns toggle_signs`
+                signcolumn                   = true,  -- Toggle with `:Gitsigns toggle_signs`
                 numhl                        = false, -- Toggle with `:Gitsigns toggle_numhl`
                 linehl                       = false, -- Toggle with `:Gitsigns toggle_linehl`
                 word_diff                    = false, -- Toggle with `:Gitsigns toggle_word_diff`
@@ -209,7 +209,7 @@ M = {
                 current_line_blame_formatter = '<author>, <author_time:%R> - <summary>',
                 sign_priority                = 6,
                 update_debounce              = 100,
-                status_formatter             = nil, -- Use default
+                status_formatter             = nil,   -- Use default
                 max_file_length              = 40000, -- Disable if file is longer than this (in lines)
                 preview_config               = {
                     -- Options passed to nvim_open_win
@@ -363,10 +363,10 @@ M = {
                     left = { ' ', wilder.popupmenu_devicons() },
                     right = { ' ', wilder.popupmenu_scrollbar() },
                     border = 'rounded',
-                    max_height = '75%', -- max height of the palette
-                    min_height = 0, -- set to the same as 'max_height' for a fixed height window
+                    max_height = '75%',      -- max height of the palette
+                    min_height = 0,          -- set to the same as 'max_height' for a fixed height window
                     prompt_position = 'top', -- 'top' or 'bottom' to set the location of the prompt
-                    reverse = 0, -- set to 1 to reverse the order of the list, use in combination with 'prompt_position'
+                    reverse = 0,             -- set to 1 to reverse the order of the list, use in combination with 'prompt_position'
                 })
             ))
             wilder.set_option('pipeline', {

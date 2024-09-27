@@ -18,7 +18,7 @@ M = {
                 fullscreen = false,
 
                 preview    = {
-                    layout     = 'horizontal',
+                    layout     = 'vertical',
                     scrollbar  = 'float',
                     vertical   = 'down:45%', -- up|down:size
                     horizontal = 'right:60%', -- right|left:size

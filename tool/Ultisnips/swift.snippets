@@ -1,11 +1,12 @@
+priority -50
+
+###########################################################################
+#                            TextMate Snippets                            #
+###########################################################################
+
 global !p
 from vimsnippets import get_comment_format
-# g:snips_author = "toofonwang"
 endglobal
-
-# snippet todo "TODO comment" bw
-# // TODO: ${1:#<something>} <${2:`!v strftime('%d-%m-%y')`}, ${3:`!v g:snips_author`}>
-# endsnippet
 
 snippet todo "TODO comment" bw
 // TODO: ${1:`!v g:snips_author`} ${2:#<something>}
@@ -67,4 +68,10 @@ endsnippet
 
 snippet sel "@selector"
 @selector(${1:method})
+endsnippet
+
+snippet csut "unit test"
+func test${1:#<BusinessName>}_${2:#<scene>}_${3:#<result>}() {
+	${4:#<code>}
+}
 endsnippet

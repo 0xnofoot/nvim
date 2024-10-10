@@ -38,9 +38,6 @@ M = {
                 highlight = {
                     enable = true,
 
-                    -- disable = {
-                    -- },
-
                     disable = function(lang, buf)
                         local full_filename = vim.api.nvim_buf_get_name(buf)
                         local ok, stats = pcall(vim.loop.fs_stat, full_filename)

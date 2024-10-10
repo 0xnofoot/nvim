@@ -26,7 +26,8 @@ M = {
                 dev_log = {
                     enabled = true,
                     notify_errors = true, -- if there is an error whilst running then notify the user
-                    open_cmd = "botright 40vnew",
+                    -- open_cmd = "botright 40vnew",
+                    open_cmd = "botright split",
                 },
 
                 debugger = {
@@ -43,6 +44,7 @@ M = {
                         }
                     },
                 },
+
                 vim.api.nvim_create_autocmd("FileType", {
                     pattern = { "dart" },
 

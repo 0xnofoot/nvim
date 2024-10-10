@@ -4,24 +4,24 @@ L = {
             -- rust
             -- rust 的配置管理插件
             -- 所有的 rust 配置统一由该插件管理
-            'mrcjkb/rustaceanvim',
-            version = '^4',
-            ft = { 'rust' },
+            "mrcjkb/rustaceanvim",
+            version = "^4",
+            ft = { "rust" },
             config = function()
                 vim.g.rustaceanvim = {
                     tools = {
                     },
                     server = {
                         on_attach = function(client, bufnr)
-                            require('config.lang.rust').lsp.setup(client, bufnr)
+                            require("config.lang.rust").lsp.setup(client, bufnr)
                         end,
                         default_settings = {
-                            ['rust-analyzer'] = {
-                                require('config.lang.rust').rust_analyzer_config,
+                            ["rust-analyzer"] = {
+                                require("config.lang.rust").rust_analyzer_config,
                             },
                         },
                     },
-                    dap = require('config.lang.rust').dap.setup(),
+                    dap = require("config.lang.rust").dap.setup(),
                 }
             end
         },
@@ -31,12 +31,19 @@ L = {
         -- TODO: bufer enter
         setup = function(client, bufnr)
             -- remap some key
-            vim.keymap.set('n', '<leader>dr',
-                function()
-                    vim.cmd.RustLsp('debuggables')
-                end,
-                { silent = true, buffer = bufnr }
-            )
+
+            vim.api.nvim_create_autocmd("FileType", {
+                pattern = { "rs", "rust" },
+
+                callback = function()
+                    vim.keymap.set("n", "<leader>dr",
+                        function()
+                            vim.cmd.RustLsp("debuggables")
+                        end,
+                        { silent = true, buffer = bufnr }
+                    )
+                end
+            })
         end,
 
         rust_analyzer_config = {
@@ -45,14 +52,14 @@ L = {
     },
 
     run_action = function()
-        vim.cmd.RustLsp('runnables')
+        vim.cmd.RustLsp("runnables")
     end,
 
     dap = {
         setup = function()
-            local codelldb_path = vim.g.mason_package_path .. '/codelldb/extension/adapter/codelldb'
-            local liblldb_path = vim.g.mason_package_path .. '/codelldb/extension/lldb/lib/liblldb.dylib'
-            local cfg = require('rustaceanvim.config')
+            local codelldb_path = vim.g.mason_package_path .. "/codelldb/extension/adapter/codelldb"
+            local liblldb_path = vim.g.mason_package_path .. "/codelldb/extension/lldb/lib/liblldb.dylib"
+            local cfg = require("rustaceanvim.config")
 
             return {
                 adapter = cfg.get_codelldb_adapter(codelldb_path, liblldb_path),

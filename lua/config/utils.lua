@@ -14,7 +14,9 @@ end
 vim.g.getCurrentTabWinCount = getCurrentTabWinCount
 
 local function quitNvim()
-    local isModified = vim.api.nvim_buf_get_option(vim.api.nvim_get_current_buf(), 'modified');
+    require("dapui").close();
+
+    local isModified = vim.api.nvim_buf_get_option(vim.api.nvim_get_current_buf(), 'modified')
 
     if isModified then
         vim.api.nvim_echo({ { "No write since last change!!!", "ErrorMsg" } }, false, {})

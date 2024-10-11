@@ -23,15 +23,19 @@ M = {
                         elements = {
                             {
                                 id = "breakpoints",
-                                size = 0.23
+                                size = 0.25
+                            },
+                            {
+                                id = "stacks",
+                                size = 0.25
                             },
                             {
                                 id = "scopes",
-                                size = 0.27
+                                size = 0.25
                             },
                             {
                                 id = "watches",
-                                size = 0.5
+                                size = 0.25
                             },
                         },
                         position = "left",
@@ -112,7 +116,7 @@ M = {
 
         -- toggle dapui
         vim.keymap.set('n', '<Leader>du', function()
-            dapui.toggle({ reset = true })
+            dapui.toggle({ reset = false })
         end)
 
         -- 关闭 dap 及 dapui

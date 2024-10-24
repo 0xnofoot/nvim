@@ -1,5 +1,5 @@
 L = {
-    -- 该配置不由 lsp-config 持有，返回给给 fluuter-tools 插件管理
+    -- 该配置不由 lsp-config 持有，返回给给 flutter-tools 插件管理
     config = {
         color        = {
             enabled = true,

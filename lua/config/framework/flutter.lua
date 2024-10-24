@@ -31,6 +31,11 @@ M = {
 
                 root_patterns = { ".git", "pubspec.yaml" }, -- patterns to find the root of your flutter project
 
+                dev_tools     = {
+                    autostart = true,         -- autostart devtools server if not detected
+                    auto_open_browser = true, -- Automatically opens devtools in the browser
+                },
+
                 dev_log       = {
                     enabled = false,
                     notify_errors = true, -- if there is an error whilst running then notify the user

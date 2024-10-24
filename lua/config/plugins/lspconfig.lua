@@ -133,7 +133,8 @@ M = {
                 'lua_ls',
                 'pylsp',
                 'bashls',
-                -- 'clangd',
+                'jsonls',
+                'yamlls',
                 'efm',
             },
             auto_update = true,
@@ -146,6 +147,8 @@ M = {
                 bashls = require('config.lsp.bashls').setup(lspconfig),
                 lua_ls = require('config.lsp.lua_ls').setup(lspconfig),
                 pylsp = require('config.lsp.pylsp').setup(lspconfig),
+                jsonls = require('config.lsp.jsonls').setup(lspconfig),
+                yamlls = require('config.lsp.yamlls').setup(lspconfig),
 
                 -- 下面是不由 Mason 管理的 lsp
                 -- sourcekit：苹果的lsp，支持 swift 和 objc

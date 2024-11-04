@@ -329,28 +329,26 @@ M = {
         -- 自动设置当前工作目录
         "airblade/vim-rooter",
         init = function()
-            vim.g.rooter_patterns = { "__vim_project_root", ".git/" }
+            vim.g.rooter_patterns = {
+                "!=flutter_uikit", "!=mi_flutter_plugins", "!=vb_bank",
+                "!=vb_basic", "!=vb_business_platform", "!=vb_framework", "!=vb_fund",
+                "!=ftiosvendorlibs", "!=ftfinancialgroup", "!=ftservicelayergroup",
+                "__vim_project_root",
+                ".git/",
+            }
             vim.g.rooter_silent_chdir = true
-        end
-    },
 
-    {
-        -- 支持大多数语言的快速跳转变量，类，函数
-        -- 不是跳转到源码，因为它并不是支持 lsp
-        -- 方便看工作目录内自己定义的类型
-        "pechorin/any-jump.vim",
-        event = "VeryLazy",
-        config = function()
-            -- vim.g.any_jump_enable_keybindings = 1
-            vim.g.any_jump_disable_default_keybindings = 1
-            vim.keymap.set("n", "<leader>gj", ":AnyJump<CR>", { noremap = true })
-            vim.keymap.set({ "v", "x" }, "<leader>gj", ":AnyJumpVisual<CR>", { noremap = true })
-            vim.g.any_jump_window_width_ratio = 0.9
-            vim.g.any_jump_window_height_ratio = 0.9
-
-            -- 这个插件的默认快捷键配置无法设置为 disable,可能是 bug
-            -- 所有在这重新配置一下 <leader>j
-            vim.keymap.set("n", "<leader>j", ":wincmd j<CR>")
+            vim.api.nvim_create_autocmd('BufEnter', {
+                pattern = '*',
+                callback = function()
+                    local file_path = vim.fn.expand('%:p')
+                    local ftnn_index = file_path:find('/FTNN/')
+                    if ftnn_index then
+                        local target_directory = file_path:sub(1, ftnn_index + 4) .. '/ftphoneniuniuapp'
+                        vim.cmd('cd ' .. target_directory)
+                    end
+                end
+            })
         end
     },
 

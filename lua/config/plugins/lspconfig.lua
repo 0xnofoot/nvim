@@ -85,7 +85,8 @@ M = {
         lsp_zero.on_attach(function(client, bufnr)
             local lsp_signature_opt = {
                 bind = true,
-                floating_window = true,
+                floating_window = false,
+                floating_window_above_cur_line = true,
                 hint_prefix = '🐰 ',
                 hint_scheme = 'luna',
                 hint_inline = function() return false end,

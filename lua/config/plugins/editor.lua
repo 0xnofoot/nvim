@@ -332,23 +332,22 @@ M = {
             vim.g.rooter_patterns = {
                 "!=flutter_uikit", "!=mi_flutter_plugins", "!=vb_bank",
                 "!=vb_basic", "!=vb_business_platform", "!=vb_framework", "!=vb_fund",
-                "!=ftiosvendorlibs", "!=ftfinancialgroup", "!=ftservicelayergroup",
                 "__vim_project_root",
                 ".git/",
             }
             vim.g.rooter_silent_chdir = true
 
-            vim.api.nvim_create_autocmd('BufEnter', {
-                pattern = '*',
-                callback = function()
-                    local file_path = vim.fn.expand('%:p')
-                    local ftnn_index = file_path:find('/FTNN/')
-                    if ftnn_index then
-                        local target_directory = file_path:sub(1, ftnn_index + 4) .. '/ftphoneniuniuapp'
-                        vim.cmd('cd ' .. target_directory)
-                    end
-                end
-            })
+            -- vim.api.nvim_create_autocmd('BufEnter', {
+            --     pattern = '*',
+            --     callback = function()
+            --         local file_path = vim.fn.expand('%:p')
+            --         local ftnn_index = file_path:find('/FTNN/')
+            --         if ftnn_index then
+            --             local target_directory = file_path:sub(1, ftnn_index + 4)
+            --             vim.cmd('cd ' .. target_directory)
+            --         end
+            --     end
+            -- })
         end
     },
 

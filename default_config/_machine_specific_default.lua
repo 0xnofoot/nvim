@@ -16,4 +16,4 @@ vim.g.snips_author = "ToofonWang"
 vim.g.sourcekit_path =
 "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/sourcekit-lsp"
 
-vim.g.flutter_sdk_path = "$HOME/.local/development/flutter"
+vim.g.flutter_sdk_path = "$HOME/fvm/versions"

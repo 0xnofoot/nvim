@@ -1,9 +1,9 @@
 L = {
     setup = function(lspconfig)
         lspconfig.sourcekit.setup({
-            cmd             = {
-                vim.g.sourcekit_path,
-            },
+            -- cmd             = {
+            --     vim.g.sourcekit_path,
+            -- },
 
             filetypes       = { "swift", "objective-c", "objc", "objective-cpp", "objcpp", "c", "cpp" },
 
@@ -17,6 +17,14 @@ L = {
                 end
                 return ftype
             end,
+
+            capabilities    = {
+                workspace = {
+                    didChangeWatchedFiles = {
+                        dynamicRegistration = true,
+                    },
+                },
+            },
 
             root_dir        = function(filename, _)
                 local util = require("lspconfig.util")

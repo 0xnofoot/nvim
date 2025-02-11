@@ -7,36 +7,36 @@ M = {
         -- 配置在 lang/swift.lua 中
         config = function()
             require("xcodebuild").setup({
-                restore_on_start = true,   -- logs, diagnostics, and marks will be loaded on VimEnter (may affect performance)
-                auto_save = true,          -- save all buffers before running build or tests (command: silent wa!)
-                show_build_progress_bar = true, -- shows [ ...    ] progress bar during build, based on the last duration
+                restore_on_start = true,               -- logs, diagnostics, and marks will be loaded on VimEnter (may affect performance)
+                auto_save = true,                      -- save all buffers before running build or tests (command: silent wa!)
+                show_build_progress_bar = true,        -- shows [ ...    ] progress bar during build, based on the last duration
                 prepare_snapshot_test_previews = true, -- prepares a list with failing snapshot tests
                 test_search = {
-                    file_matching = "filename_lsp", -- one of: filename, lsp, lsp_filename, filename_lsp. Check out README for details
-                    target_matching = true, -- checks if the test file target matches the one from logs. Try disabling it in case of not showing test results
-                    lsp_client = "sourcekit", -- name of your LSP for Swift files
-                    lsp_timeout = 200,     -- LSP timeout in milliseconds
+                    file_matching = "filename_lsp",    -- one of: filename, lsp, lsp_filename, filename_lsp. Check out README for details
+                    target_matching = true,            -- checks if the test file target matches the one from logs. Try disabling it in case of not showing test results
+                    lsp_client = "sourcekit",          -- name of your LSP for Swift files
+                    lsp_timeout = 200,                 -- LSP timeout in milliseconds
                 },
                 commands = {
-                    cache_devices = true,      -- cache recently loaded devices. Restart Neovim to clean cache.
-                    extra_build_args = "-parallelizeTargets", -- extra arguments for `xcodebuild build`
-                    extra_test_args = "-parallelizeTargets", -- extra arguments for `xcodebuild test`
-                    project_search_max_depth = 3, -- maxdepth of xcodeproj/xcworkspace search while using configuration wizard
+                    cache_devices = true,                        -- cache recently loaded devices. Restart Neovim to clean cache.
+                    extra_build_args = { "-parallelizeTargets" }, -- extra arguments for `xcodebuild build`
+                    extra_test_args = { "-parallelizeTargets" }, -- extra arguments for `xcodebuild test`
+                    project_search_max_depth = 3,                -- maxdepth of xcodeproj/xcworkspace search while using configuration wizard
                 },
                 logs = {
-                    auto_open_on_success_tests = true,       -- open logs when tests succeeded
-                    auto_open_on_failed_tests = true,        -- open logs when tests failed
-                    auto_open_on_success_build = false,      -- open logs when build succeeded
-                    auto_open_on_failed_build = true,        -- open logs when build failed
-                    auto_close_on_app_launch = false,        -- close logs when app is launched
-                    auto_close_on_success_build = false,     -- close logs when build succeeded (only if auto_open_on_success_build=false)
-                    auto_focus = true,                       -- focus logs buffer when opened
-                    filetype = "objc",                       -- file type set for buffer with logs
-                    open_command = "silent bo split {path} | resize 10", -- command used to open logs panel. You must use {path} variable to load the log file
+                    auto_open_on_success_tests = true,                      -- open logs when tests succeeded
+                    auto_open_on_failed_tests = true,                       -- open logs when tests failed
+                    auto_open_on_success_build = false,                     -- open logs when build succeeded
+                    auto_open_on_failed_build = true,                       -- open logs when build failed
+                    auto_close_on_app_launch = false,                       -- close logs when app is launched
+                    auto_close_on_success_build = false,                    -- close logs when build succeeded (only if auto_open_on_success_build=false)
+                    auto_focus = true,                                      -- focus logs buffer when opened
+                    filetype = "objc",                                      -- file type set for buffer with logs
+                    open_command = "silent bo split {path} | resize 10",    -- command used to open logs panel. You must use {path} variable to load the log file
                     logs_formatter = "xcbeautify --disable-colored-output", -- command used to format logs, you can use "" to skip formatting
-                    only_summary = false,                    -- if true logs won't be displayed, just xcodebuild.nvim summary
-                    show_warnings = true,                    -- show warnings in logs summary
-                    notify = function(message, severity)     -- function to show notifications from this module (like "Build Failed")
+                    only_summary = false,                                   -- if true logs won't be displayed, just xcodebuild.nvim summary
+                    show_warnings = true,                                   -- show warnings in logs summary
+                    notify = function(message, severity)                    -- function to show notifications from this module (like "Build Failed")
                         vim.notify(message, severity)
                     end,
                     notify_progress = function(message) -- function to show live progress (like during tests)
@@ -44,7 +44,7 @@ M = {
                     end,
                 },
                 console_logs = {
-                    enabled = true, -- enable console logs in dap-ui
+                    enabled = true,              -- enable console logs in dap-ui
                     format_line = function(line) -- format each line of logs
                         return line
                     end,
@@ -60,7 +60,7 @@ M = {
                     show_diagnostics = true, -- add test failures to diagnostics
                 },
                 quickfix = {
-                    show_errors_on_quickfixlist = true, -- add build/test errors to quickfix list
+                    show_errors_on_quickfixlist = true,   -- add build/test errors to quickfix list
                     show_warnings_on_quickfixlist = true, -- add build warnings to quickfix list
                 },
                 test_explorer = {
@@ -80,7 +80,7 @@ M = {
                     cursor_follows_tests = true, -- moves cursor to the last test executed
                 },
                 code_coverage = {
-                    enabled = false, -- generate code coverage report and show marks
+                    enabled = false,          -- generate code coverage report and show marks
                     file_pattern = "*.swift", -- coverage will be shown in files matching this pattern
                     -- configuration of line coverage presentation:
                     covered_sign = "",
@@ -98,14 +98,14 @@ M = {
                         enabled = true, -- run "xcode-build-server config" when scheme changes
                     },
                     nvim_tree = {
-                        enabled = true,      -- enable updating Xcode project files when using nvim-tree
-                        guess_target = true, -- guess target for the new file based on the file path
+                        enabled = true,                        -- enable updating Xcode project files when using nvim-tree
+                        guess_target = true,                   -- guess target for the new file based on the file path
                         should_update_project = function(path) -- path can lead to directory or file
                             -- it could be useful if you mix Xcode project with SPM for example
                             return true
                         end,
                     },
-                    quick = { -- integration with Swift test framework: github.com/Quick/Quick
+                    quick = {           -- integration with Swift test framework: github.com/Quick/Quick
                         enabled = true, -- enable Quick tests support (requires Swift parser for nvim-treesitter)
                     },
                 },

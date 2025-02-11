@@ -133,6 +133,7 @@ M = {
             ensure_installed = {
                 'lua_ls',
                 'pylsp',
+                'jdtls',
                 'bashls',
                 'jsonls',
                 'yamlls',
@@ -148,6 +149,7 @@ M = {
                 bashls = require('config.lsp.bashls').setup(lspconfig),
                 lua_ls = require('config.lsp.lua_ls').setup(lspconfig),
                 pylsp = require('config.lsp.pylsp').setup(lspconfig),
+                jdtls = require('config.lsp.jdtls').setup(lspconfig),
                 jsonls = require('config.lsp.jsonls').setup(lspconfig),
                 yamlls = require('config.lsp.yamlls').setup(lspconfig),
 

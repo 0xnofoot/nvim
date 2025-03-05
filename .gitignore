@@ -1,4 +1,2 @@
 # ignore these file
-/tool/swift/xcode-build-server/
 /lua/config/machine_specific.lua
-/.luarc.json

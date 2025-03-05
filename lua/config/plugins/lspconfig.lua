@@ -25,37 +25,6 @@ M = {
             'neovim/nvim-lspconfig'
         },
 
-        {
-            -- 方法签名预览
-            'ray-x/lsp_signature.nvim',
-            event = 'VeryLazy',
-            config = function()
-                vim.keymap.set({ 'n', 'i' }, '<C-w>', function()
-                    require('lsp_signature').toggle_float_win()
-                end, { silent = true, noremap = true, desc = 'toggle signature' })
-            end
-        },
-
-        {
-            -- 代码问题检查
-            'folke/trouble.nvim',
-            dependencies = {
-                'nvim-tree/nvim-web-devicons'
-            },
-            opts = {
-                use_diagnostic_signs = true,
-                cycle_results = false,
-                action_keys = {
-                    close = 'q',
-                    cancle = '<esc>',
-                    jump = { "<cr>", "<2-leftmouse>" },
-                    open_split = { "<c-j>" },
-                    open_vsplit = { "<c-l>" },
-                    open_tab = { "<c-t>" },
-                    jump_close = { "o" },
-                },
-            },
-        },
 
         {
             -- efm 的扩展配置，用于快速调用 formatter 和 linter
@@ -69,13 +38,6 @@ M = {
             'folke/neodev.nvim',
         },
 
-        {
-            -- 提供 lsp 加载进度的 UI 提示
-            'j-hui/fidget.nvim',
-            config = function()
-                require('fidget').setup({})
-            end,
-        },
     },
 
     config = function()
@@ -83,24 +45,7 @@ M = {
         local lspconfig = require('lspconfig')
 
         lsp_zero.on_attach(function(client, bufnr)
-            local lsp_signature_opt = {
-                bind = true,
-                floating_window = false,
-                floating_window_above_cur_line = true,
-                hint_prefix = '🐰 ',
-                hint_scheme = 'luna',
-                hint_inline = function() return false end,
-                handler_opts = {
-                    border = 'rounded'
-                },
-                always_trigger = true,
-                hi_parameter = 'IncSearch',
-                toggle_key_flip_floatwin_setting = true,
-            }
-
-            require('lsp_signature').on_attach(lsp_signature_opt, bufnr)
-
-            -- for barbecue winbar
+            -- for winbar
             if client.server_capabilities["documentSymbolProvider"] then
                 require("nvim-navic").attach(client, bufnr)
             end
@@ -122,8 +67,8 @@ M = {
                 vim.keymap.set('n', 'gr', '<cmd>Telescope lsp_references<cr>', opts)
                 vim.keymap.set('n', 'gR', vim.lsp.buf.rename, opts)
                 vim.keymap.set('n', 'gt', vim.diagnostic.open_float, opts)
-                vim.keymap.set('n', 'gT', ':Trouble<cr>', opts)
-                vim.keymap.set({ 'n', 'v', 'x' }, '<leader>gf', function() vim.lsp.buf.format({ async = true }) end, opts)
+                vim.keymap.set({ 'n', 'v', 'x' }, '<leader>gf', function() vim.lsp.buf.format({ async = true }) end,
+                    opts)
             end
         })
 
@@ -132,11 +77,6 @@ M = {
         require('mason-lspconfig').setup({
             ensure_installed = {
                 'lua_ls',
-                'pylsp',
-                'jdtls',
-                'bashls',
-                'jsonls',
-                'yamlls',
                 'efm',
             },
             auto_update = true,
@@ -145,23 +85,7 @@ M = {
                 -- lsp 个性化配置, 对每个 lsp 都单独使用一份 .lua 文件
                 -- 保存在 config/lang/*.lua 中, 变量名称必须与 lsp 的名称相同
                 -- 在 .lua 文件中 调用 .lsp.setup(lspconfig) 来进行配置
-                -- clangd = require('config.lsp.clangd').setup(lspconfig),
-                bashls = require('config.lsp.bashls').setup(lspconfig),
                 lua_ls = require('config.lsp.lua_ls').setup(lspconfig),
-                pylsp = require('config.lsp.pylsp').setup(lspconfig),
-                jdtls = require('config.lsp.jdtls').setup(lspconfig),
-                jsonls = require('config.lsp.jsonls').setup(lspconfig),
-                yamlls = require('config.lsp.yamlls').setup(lspconfig),
-
-                -- 下面是不由 Mason 管理的 lsp
-                -- sourcekit：苹果的lsp，支持 swift 和 objc
-                sourcekit = require('config.lsp.sourcekit').setup(lspconfig),
-
-                -- dartls: dart的lsp，由dart自身提供，不在这里配置，由 flutter-tools 插件配置
-
-                -- rust-analyzer 的下载由rust 'rustup component add rust-analyzer' 指令完成
-                -- rust-analyzer 交由 'mrcjkb/rustaceanvim' 管理，不要在 mason 或 lsp-config 中配置 rust-analyzer
-
                 -- efm （extension format module 可以配置文件类型对应的 formatter , linter)
                 efm = require('config.lsp.efm').setup(lspconfig),
             }
@@ -172,7 +96,6 @@ M = {
                 'shfmt',
                 'shellcheck',
                 'clang-format',
-                'codelldb',
             },
             auto_update = true,
             run_on_start = true, -- Use MasonToolsUpdate to run this

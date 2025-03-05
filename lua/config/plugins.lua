@@ -22,27 +22,15 @@ require("lazy").setup({
     require("config.plugins.editor"),
 
     -- 查找
-    -- 根据文件内容查找文件, fzf 相比于 telescope 更准确
-    require("config.plugins.fzf"),
-    -- telescope
-    require("config.plugins.telescope"),
-    -- 在 nvim 中打开joshuto
-    require("config.plugins.joshuto"),
+    require("config.plugins.search"),
 
     -- lsp 配置
     -- lsp 主配置
     require("config.plugins.lspconfig"),
     -- lsp 自动补全
     require("config.plugins.autocomplete"),
-    -- treesitter 文本分析
+
+    -- treesitter 语法分析
     require("config.plugins.treesitter"),
-    -- 提供 range format 能力，不依赖 lsp 需要单独配置
-    require("config.plugins.conform"),
 
-    -- 运行和调试
-    require("config.plugins.lang"),
-    require("config.plugins.debugger"),
-
-    -- 其他特定框架和环境所需要的插件
-    require("config.plugins.framework"),
 })

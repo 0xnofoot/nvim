@@ -59,8 +59,6 @@ end
 local M = {
     'hrsh7th/nvim-cmp',
 
-    after = { 'SirVer/ultisnips' },
-
     dependencies = {
         { 'hrsh7th/cmp-nvim-lsp' },
         { 'hrsh7th/cmp-buffer' },
@@ -107,27 +105,11 @@ local M = {
             end
         },
 
-        {
-            'SirVer/ultisnips',
-            dependencies = {
-                'honza/vim-snippets',
-                'quangnguyen30192/cmp-nvim-ultisnips',
-            },
-            config = function()
-                vim.g.UltiSnipsSnippetDirectories = { os.getenv("HOME") .. "/.config/nvim/tool/Ultisnips" }
-                -- vim.g.UltiSnipsExpandTrigger = '<Plug>(ultisnips_expand)'
-                -- vim.g.UltiSnipsJumpForwardTrigger = '<Plug>(ultisnips_jump_forward)'
-                -- vim.g.UltiSnipsJumpBackwardTrigger = '<Plug>(ultisnips_jump_backward)'
-                -- vim.g.UltiSnipsListSnippets = '<c-x><c-s>'
-                -- vim.g.UltiSnipsRemoveSelectModeMappings = 0
-            end
-        },
     },
 
     config = function()
         local cmp = require('cmp')
         local lspkind = require('lspkind')
-        local cmp_ultisnips_mappings = require("cmp_nvim_ultisnips.mappings")
 
         setCompHL()
 
@@ -135,7 +117,6 @@ local M = {
 
             sources = cmp.config.sources({
                 { name = 'nvim_lsp' },
-                { name = 'ultisnips' }, -- For ultisnips users.
             }, {
                 { name = 'buffer' },
                 { name = 'path' },
@@ -162,10 +143,6 @@ local M = {
                     ellipsis_char = '..',
                     menu = '',
                 })
-            },
-
-            snippet = {
-                expand = function(args) vim.fn["UltiSnips#Anon"](args.body) end
             },
 
 
@@ -196,6 +173,8 @@ local M = {
                             cmp.complete()
                         elseif cmp.visible() then
                             cmp.close()
+                        else
+                            fallback()
                         end
                     end,
                 }),
@@ -205,8 +184,6 @@ local M = {
                         if cmp.visible() then
                             cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
                             moveCursorBeforeComma()
-                        elseif vim.fn["UltiSnips#CanJumpForwards"]() == 1 then
-                            cmp_ultisnips_mappings.jump_forwards(fallback)
                         else
                             fallback()
                         end
@@ -222,13 +199,6 @@ local M = {
                         end
                     end,
 
-                    s = function(fallback)
-                        if vim.fn["UltiSnips#CanJumpForwards"]() == 1 then
-                            cmp_ultisnips_mappings.jump_forwards(fallback)
-                        else
-                            fallback()
-                        end
-                    end,
                 }),
 
                 ['<S-Tab>'] = cmp.mapping({
@@ -236,8 +206,6 @@ local M = {
                         if cmp.visible() then
                             cmp.select_prev_item({ behavior = cmp.SelectBehavior.Select })
                             moveCursorBeforeComma()
-                        elseif vim.fn["UltiSnips#CanJumpBackwards"]() == 1 then
-                            cmp_ultisnips_mappings.jump_backwards(fallback)
                         else
                             fallback()
                         end
@@ -253,13 +221,6 @@ local M = {
                         end
                     end,
 
-                    s = function(fallback)
-                        if vim.fn["UltiSnips#CanJumpBackwards"]() == 1 then
-                            cmp_ultisnips_mappings.jump_backwards(fallback)
-                        else
-                            fallback()
-                        end
-                    end,
                 }),
             }),
 

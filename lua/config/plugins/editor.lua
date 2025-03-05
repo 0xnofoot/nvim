@@ -22,96 +22,6 @@ M = {
     },
 
     {
-        -- 背景显示颜色字符
-        "NvChad/nvim-colorizer.lua",
-        event = "VeryLazy",
-        opts = {
-            filetypes = { "*" },
-            user_default_options = {
-                RGB      = true,         -- #RGB hex codes
-                RRGGBB   = true,         -- #RRGGBB hex codes like #8080ff
-                names    = true,         -- "Name" codes like Blue
-                RRGGBBAA = true,         -- #RRGGBBAA hex codes like
-                rgb_fn   = true,         -- CSS rgb() and rgba() functions
-                hsl_fn   = true,         -- CSS hsl() and hsla() functions
-                css      = true,         -- Enable all CSS features: rgb_fn, hsl_fn, names, RGB, RRGGBB
-                css_fn   = true,         -- Enable all CSS *functions*: rgb_fn, hsl_fn
-                -- Available modes: foreground, background
-                mode     = "background", -- Set the display mode.
-            },
-            -- all the sub-options of filetypes apply to buftypes
-            buftypes = {},
-        }
-    },
-
-    {
-        -- 折叠功能强化
-        "kevinhwang91/nvim-ufo",
-        event = "VeryLazy",
-        dependencies = { "kevinhwang91/promise-async", },
-        config = function()
-            local handler = function(virtText, lnum, endLnum, width, truncate)
-                local newVirtText = {}
-                local suffix = (" ... %d 󰁂 ... "):format(endLnum - lnum)
-                local sufWidth = vim.fn.strdisplaywidth(suffix)
-                local targetWidth = width - sufWidth
-                local curWidth = 0
-                for _, chunk in ipairs(virtText) do
-                    local chunkText = chunk[1]
-                    local chunkWidth = vim.fn.strdisplaywidth(chunkText)
-                    if targetWidth > curWidth + chunkWidth then
-                        table.insert(newVirtText, chunk)
-                    else
-                        chunkText = truncate(chunkText, targetWidth - curWidth)
-                        local hlGroup = chunk[2]
-                        table.insert(newVirtText, { chunkText, hlGroup })
-                        chunkWidth = vim.fn.strdisplaywidth(chunkText)
-                        -- str width returned from truncate() may less than 2nd argument, need padding
-                        if curWidth + chunkWidth < targetWidth then
-                            suffix = suffix .. (" "):rep(targetWidth - curWidth - chunkWidth)
-                        end
-                        break
-                    end
-                    curWidth = curWidth + chunkWidth
-                end
-                table.insert(newVirtText, { suffix, "MoreMsg" })
-                return newVirtText
-            end
-
-            require("ufo").setup({
-                enable_get_fold_virt_text = true,
-                fold_virt_text_handler = handler,
-                open_fold_hl_timeout = 150,
-                close_fold_kinds_for_ft = {
-                    description = {},
-                    default = { default = {} }
-                },
-                preview = {
-                    win_config = {
-                        border = { "", "─", "", "", "", "─", "", "" },
-                        winhighlight = "Normal:Folded",
-                        winblend = 0
-                    },
-                    mappings = {
-                        scrollU = "<C-u>",
-                        scrollD = "<C-d>",
-                        jumpTop = "[",
-                        jumpBot = "]"
-                    }
-                },
-                provider_selector = function(bufnr, filetype, buftype)
-                    return { "treesitter", "indent" }
-                end,
-            })
-
-            vim.keymap.set("n", "zz", "za")
-            vim.keymap.set("n", "zx", require("ufo").openFoldsExceptKinds)
-            vim.keymap.set("n", "zX", require("ufo").openAllFolds)
-            vim.keymap.set("n", "zc", require("ufo").closeFoldsWith) -- closeAllFolds == closeFoldsWith(0)
-        end
-    },
-
-    {
         -- 补全括号
         "windwp/nvim-autopairs",
         event = "BufRead",
@@ -144,17 +54,6 @@ M = {
             vim.keymap.set('i', '<C-_>', require('Comment.api').toggle.linewise.current)
         end
 
-    },
-
-    {
-        -- 对于被括号或其他符号包围的内容
-        -- 提供一系列快速操作方案
-        "kylechui/nvim-surround",
-        event = "VeryLazy",
-        version = "*",
-        config = function()
-            require("nvim-surround").setup()
-        end
     },
 
     {
@@ -197,35 +96,6 @@ M = {
                     enabled = true,
                 },
             })
-        end
-    },
-
-    {
-        -- 全屏并浮动当前窗口
-        "nyngwang/NeoZoom.lua",
-        event = "VeryLazy",
-        config = function()
-            vim.keymap.set("n", "<leader>;", ":NeoZoomToggle<CR>", { silent = true, nowait = true })
-            require("neo-zoom").setup {
-                popup = { enabled = true }, -- this is the default.
-                exclude_buftypes = { "terminal" },
-                exclude_filetypes = { "lspinfo", "mason", "lazy", "fzf", },
-                winopts = {
-                    offset = {
-                        width = 1.0,
-                        height = 1.0,
-                    },
-                    border = "thicc", -- this is a preset, try it :)
-                },
-                presets = {
-                    {
-                        filetypes = { "markdown" },
-                        callbacks = {
-                            function() vim.wo.wrap = true end,
-                        },
-                    },
-                },
-            }
         end
     },
 
@@ -336,41 +206,6 @@ M = {
                 ".git/",
             }
             vim.g.rooter_silent_chdir = true
-
-            -- vim.api.nvim_create_autocmd('BufEnter', {
-            --     pattern = '*',
-            --     callback = function()
-            --         local file_path = vim.fn.expand('%:p')
-            --         local ftnn_index = file_path:find('/FTNN/')
-            --         if ftnn_index then
-            --             local target_directory = file_path:sub(1, ftnn_index + 4)
-            --             vim.cmd('cd ' .. target_directory)
-            --         end
-            --     end
-            -- })
-        end
-    },
-
-    {
-        -- undo 操作树
-        "mbbill/undotree",
-        event = 'VeryLazy',
-        config = function()
-            vim.keymap.set("n", "<leader>u", ":UndotreeToggle<CR>")
-            vim.cmd([[
-					let g:undotree_DiffAutoOpen = 1
-					let g:undotree_SetFocusWhenToggle = 1
-					let g:undotree_ShortIndicators = 1
-					let g:undotree_WindowLayout = 2
-					let g:undotree_DiffpanelHeight = 8
-					let g:undotree_SplitWidth = 24
-					function g:Undotree_CustomMap()
-						nmap <buffer> j <plug>UndotreePreviousState
-						nmap <buffer> k <plug>UndotreeNextState
-						nmap <buffer> J 5<plug>UndotreePreviousState
-						nmap <buffer> K 5<plug>UndotreeNextState
-					endfunc
-				]])
         end
     },
 

@@ -22,7 +22,6 @@ vim.cmd([[autocmd TermOpen term://* startinsert]])
 
 -- 配置非文本元素颜色
 vim.cmd([[hi NonText ctermfg=gray guifg=grey10]])
-
 -- 在终端中加速屏幕重绘，提高响应速度
 vim.o.ttyfast = true
 -- 使得当前工作目录自动切换到当前文件所在的目录
@@ -101,30 +100,14 @@ vim.o.visualbell = true
 vim.o.updatetime = 100
 -- 设置虚拟编辑模式为块状
 vim.o.virtualedit = 'block'
-
 -- 允许在切换 buffer 时隐藏未保存的文件
 vim.o.hidden = true
 -- 切换 buffer 时优先使用已打开的窗口
 vim.o.switchbuf = "useopen"
-
 -- 当进入缓冲区时将工作目录设为当前目录
 vim.api.nvim_create_autocmd("BufEnter", { pattern = "*", command = "silent! lcd %:p:h", })
-
 -- 再次打开文件时光标定位到上一次退出的位置
 vim.cmd([[au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif]])
 
--- 读取 config.machine_specific.lua 文件，如果没有该文件则创建该文件并复制对应内容
-local config_path = vim.fn.stdpath("config")
-local current_config_path = config_path .. "/lua/config/machine_specific.lua"
-if not vim.loop.fs_stat(current_config_path) then
-    local current_config_file = io.open(current_config_path, "wb")
-    local default_config_path = config_path .. "/default_config/_machine_specific_default.lua"
-    local default_config_file = io.open(default_config_path, "rb")
-    if default_config_file and current_config_file then
-        local content = default_config_file:read("*all")
-        current_config_file:write(content)
-        io.close(default_config_file)
-        io.close(current_config_file)
-    end
-end
+-- 读取 config.machine_specific.lua 文件
 require("config.machine_specific")

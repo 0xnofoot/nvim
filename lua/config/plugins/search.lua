@@ -28,11 +28,6 @@ M = {
             vim.keymap.set('n', '<leader>eb', builtin.buffers, m)
             vim.keymap.set('n', '<leader>eo', builtin.oldfiles, m)
             vim.keymap.set('n', '<leader>ep', builtin.registers, m)
-            vim.keymap.set('n', '<leader>ed', function()
-                builtin.diagnostics({
-                    severity_sort = true,
-                })
-            end, m)
 
             local ts = require('telescope')
 

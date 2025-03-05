@@ -79,6 +79,7 @@ M = {
                 'lua_ls',
                 'efm',
             },
+            automatic_installation = true,
             auto_update = true,
             handlers = {
 

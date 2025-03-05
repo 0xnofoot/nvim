@@ -105,6 +105,12 @@ local M = {
             end
         },
 
+        {
+            "L3MON4D3/LuaSnip",
+            version = "v2.*",
+            build = "make install_jsregexp"
+        }
+
     },
 
     config = function()
@@ -117,6 +123,7 @@ local M = {
 
             sources = cmp.config.sources({
                 { name = 'nvim_lsp' },
+                { name = 'luasnip' },
             }, {
                 { name = 'buffer' },
                 { name = 'path' },

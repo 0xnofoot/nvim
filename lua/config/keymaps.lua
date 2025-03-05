@@ -74,7 +74,7 @@ local nmappings = {
     { from = "c.",           to = "c$",                                                  mode = mode_n },
 
     { from = "U",            to = "<c-r>",                                               mode = mode_n },
-    { from = "<leader><rc>", to = ":nohlsearch<CR>",                                     mode = mode_nv },
+    { from = "<leader><cr>", to = ":nohlsearch<CR>",                                     mode = mode_nv },
 
     { from = "u",            to = "<nop>",                                               mode = mode_v },
     { from = "U",            to = "<nop>",                                               mode = mode_v },
